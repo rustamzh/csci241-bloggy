@@ -18,3 +18,10 @@ server.pid
 /documentation
 .idea
 /out
+
+data/
+db/
+dist/
+logs/
+test-result/
+modules/
