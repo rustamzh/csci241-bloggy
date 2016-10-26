@@ -1,2 +1,2 @@
 # csci241-bloggy
-Blog engine on playframework and mysql db
+Blog engine on playframework and mysql db. This is master branch
