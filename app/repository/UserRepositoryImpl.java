@@ -44,7 +44,7 @@ public class UserRepositoryImpl implements UserRepository {
 
             try{
                 Statement stm = conn.createStatement();
-                ResultSet rs = stm.executeQuery("select * from user where nickname="+nickname+" limit 1");
+                ResultSet rs = stm.executeQuery("select * from user where nickname=\""+nickname+"\" limit 1");
                 if(!rs.isBeforeFirst()){
                     return user=null;
                 }

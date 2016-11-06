@@ -1,8 +1,6 @@
 package models;
 
-/**
- * Created by ruszh on 06-Nov-16.
- */
+
 public class Comment {
     private int commentId;
     private String date;
@@ -18,6 +16,14 @@ public class Comment {
         this.post_postId=post_postId;
         this.user_nickname=user_nickname;
     }
+    public Comment(int commentId, String date, String body, int post_postId, String user_nickname){
+        this.commentId=commentId;
+        this.body=body;
+        this.date=date;
+        this.post_postId=post_postId;
+        this.user_nickname=user_nickname;
+    }
+
 
     public int getCommentId() {
         return commentId;
