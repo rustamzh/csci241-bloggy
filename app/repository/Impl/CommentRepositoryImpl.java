@@ -66,7 +66,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public boolean updateComment(int commentId, Comment comment) {
-        String str = "UPDATE comment set date=\""+Date.valueOf(comment.getDate()).toString()+"\" , body=\""+comment.getBody()+"\" where commentId=\""+commentId+"\"";
+        String str = "UPDATE comment set date=\""+Date.valueOf(comment.getDate()).toString()+"\" , body=\""+comment.getBody()+"\" where commentId="+commentId;
         int res = getRes(str);
         return res==1;
     }
