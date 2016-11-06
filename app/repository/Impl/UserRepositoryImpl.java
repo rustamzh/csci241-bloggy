@@ -1,6 +1,7 @@
-package repository;
+package repository.Impl;
 
 import models.User;
+import repository.UserRepository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
