@@ -10,11 +10,11 @@ public class User {
     private String Avatar;
 
     public User(){}
-    public User(String nickname, String password, String type, String email){
+    public User(String nickname, String password, String type, String name){
         this.Nickname=nickname;
         this.Password=password;
         this.Type=type;
-        this.Email=email;
+        this.Name=name;
 
     }
     public User(String nickname, String name, String password, String type, String email, String Avatar){

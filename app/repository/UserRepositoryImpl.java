@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class UserRepositoryImpl implements UserRepository {
-    Connection conn=null;
+    private Connection conn=null;
 
     @Override
     public List<User> getAllUsers() {
@@ -32,22 +32,61 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean createUser(String nickname, String password, String type, String email) {
-        return false;
+    public boolean createUser(String nickname, String password, String type, String name) {
+        String str = "insert into user (nickname, password, type, name) values (\""+nickname+"\",\""+password+"\",\""+type+"\",\"" + name + "\")";
+        int res = getRes(str);
+        return res==1;
     }
 
     @Override
     public User getUser(String nickname) {
-        return null;
+        User user = null;
+
+            try{
+                Statement stm = conn.createStatement();
+                ResultSet rs = stm.executeQuery("select * from user where nickname="+nickname+" limit 1");
+                if(!rs.isBeforeFirst()){
+                    return user=null;
+                }
+                while(rs.next()){
+                    user= new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5), rs.getString(6));
+
+                }
+            }catch (Exception ex){
+                System.out.println(ex.getMessage());
+
+            }
+
+
+        return user;
     }
 
     @Override
     public boolean updateUser(String nickname, User user) {
-        return false;
+
+        String str = "UPDATE user set name=\""+user.getName()+"\" , email=\""+user.getEmail()+"\", avatar=\"" + user.getAvatar()+ "\", password=\""+user.getPassword()+"\" where nickname=\""+nickname+"\"";
+        int res = getRes(str);
+        return res==1;
     }
 
     @Override
     public boolean deleteUser(String nickname) {
-        return false;
+
+        String str = "delete from user where nickname=\""+nickname+"\"";
+        int res = getRes(str);
+        return res==1;
+    }
+
+    private int getRes(String str) {
+        int res=0;
+        Statement stm;
+            try{
+                stm = conn.createStatement();
+                res=stm.executeUpdate(str);
+            }catch (Exception ex){
+                System.out.println(ex.getMessage());
+            }
+
+        return res;
     }
 }
