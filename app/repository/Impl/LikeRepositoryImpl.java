@@ -9,9 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ruszh on 06-Nov-16.
- */
+
 public class LikeRepositoryImpl implements LikeRepository {
 
     private Connection conn=null;
