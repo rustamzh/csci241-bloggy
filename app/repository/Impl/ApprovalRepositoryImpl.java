@@ -33,11 +33,27 @@ public class ApprovalRepositoryImpl implements ApprovalRepository {
 
     @Override
     public boolean createApproval(int commentId) {
-        return false;
+        String str = "insert into approval (commentId) values ("+commentId+")";
+        int res = getRes(str);
+        return res==1;
     }
 
     @Override
     public boolean deleteApproval(int approvalId) {
-        return false;
+        String str = "delete from approval where approvalId="+approvalId;
+        int res = getRes(str);
+        return res==1;
+    }
+    private int getRes(String str) {
+        int res=0;
+        Statement stm;
+        try{
+            stm = conn.createStatement();
+            res=stm.executeUpdate(str);
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        return res;
     }
 }
