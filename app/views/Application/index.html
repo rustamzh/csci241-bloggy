@@ -1,4 +1,50 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-#{welcome /}
+#{if featuredPost}
+<div class="post">
+    <h2 class="post-title">
+        <a href="#">${featuredPost.getTitle()}</a>
+    </h2>
+    <div class="post-metadata">
+        <span class="post-author">${featuredPost.getUser().getName()}</span>|
+        <span class="post-date">${featuredPost.getDate().format('MMM dd')}</span>
+    </div>
+    <div class="post-content">
+    ${featuredPost.getBody().raw().nl2br()}
+    </div>
+</div>
+
+
+    #{if listposts}
+    <div class="posts">
+        #{list items:listposts, as:'post'}
+            <div class="post">
+                <h2 class="post-title">
+                    <a href="#">${post.getTitle()}</a>
+                </h2>
+                <div class="post-metadata">
+                        <span class="post-author">
+                            ${post.getUser().getName()}
+                        </span>
+                    <span class="post-date">
+                            ${post.getDate().format('dd MMM yy')}
+                        </span>
+
+                </div>
+                <div class="post-content">
+                ${featuredPost.getBody().raw().nl2br()}
+                </div>
+            </div>
+        #{/list}
+    </div>
+
+    #{/if}
+
+#{/if}
+
+#{else}
+<div class="empty">
+    There is currently nothing to read here.
+</div>
+#{/else}
