@@ -17,10 +17,32 @@
     </div>
 </div>
 
+#{/if}
+   *{ #{if listposts}}*
+    *{<div class="posts">
+    #{list items:listposts, as:'post'}
+        <div class="post">
+            <h2 class="post-title">
+                <a href="#">${post.getTitle()}</a>
+            </h2>
+            <div class="post-metadata">
+                        <span class="post-author">
+                            ${post.getUser().getName()}
+                        </span>
+                <span class="post-date">
+                            ${post.getDate().format('dd MMM yy')}
+                        </span>
 
-    #{if listposts}
-    <div class="posts">
-        #{list items:listposts, as:'post'}
+            </div>
+            <div class="post-content">
+            ${featuredPost.getBody().raw().nl2br()}
+            </div>
+        </div>
+    #{/list}
+</div>
+#{/if}}*
+#{if paginator}
+        #{paginate.list items:paginator, as:'post'}
             <div class="post">
                 <h2 class="post-title">
                     <a href="#">${post.getTitle()}</a>
@@ -35,13 +57,13 @@
 
                 </div>
                 <div class="post-content">
-                ${featuredPost.getBody().raw().nl2br()}
+                ${post.getBody().raw().nl2br()}
                 </div>
             </div>
-        #{/list}
-    </div>
+        #{/paginate.list}
+        #{paginate.controls items:paginator /}
 
-    #{/if}
+
 
 #{/if}
 
