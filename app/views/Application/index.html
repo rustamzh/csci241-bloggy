@@ -41,6 +41,7 @@
     #{/list}
 </div>
 #{/if}}*
+
 #{if paginator}
         #{paginate.list items:paginator, as:'post'}
             <div class="post">
@@ -61,10 +62,8 @@
                 </div>
             </div>
         #{/paginate.list}
+
         #{paginate.controls items:paginator /}
-
-
-
 #{/if}
 
 #{else}

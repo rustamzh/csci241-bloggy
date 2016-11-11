@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PostRepository {
     List<Post> getAllPosts();
-    boolean createPost(String date, String body, String category, String user_nickname);
+    boolean createPost(Date date,String title, String body, String category, User user);
     Post getPost(int postId);
     boolean updatePost(int postId, Post post);
     boolean deletePost(int postId);

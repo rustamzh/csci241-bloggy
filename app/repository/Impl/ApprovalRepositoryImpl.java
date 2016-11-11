@@ -13,15 +13,15 @@ import java.util.List;
 public class ApprovalRepositoryImpl implements ApprovalRepository {
     private Connection conn;
     @Override
-    public List<Approval> getAllApprovals() {
+    public List<Approval> getAllApprovalsforTable() {
         List<Approval> list = new ArrayList<>();
 
         try{
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("select * from approval");
+            ResultSet rs = stm.executeQuery("select a.approvalId, a.commentId, p.title, c.user_nickname, c.body from (approval as a join comment as c on a.commentId=c.commentId) join post as p on c.post_postId=p.postid ");
             while(rs.next()){
                 //int approvalId, int commentId
-                list.add(new Approval(Integer.parseInt(rs.getString(1)),Integer.parseInt(rs.getString(2))));
+                list.add(new Approval(Integer.parseInt(rs.getString(1)),Integer.parseInt(rs.getString(2)),rs.getString(3),rs.getString(4),rs.getString(5)));
             }
         }catch (Exception ex){
             System.out.println(ex.getMessage());
@@ -30,6 +30,8 @@ public class ApprovalRepositoryImpl implements ApprovalRepository {
 
         return list;
     }
+
+
 
     @Override
     public boolean createApproval(int commentId) {
@@ -44,6 +46,14 @@ public class ApprovalRepositoryImpl implements ApprovalRepository {
         int res = getRes(str);
         return res==1;
     }
+
+    @Override
+    public boolean deleteAllApprovals() {
+        String str = "delete from approval where approvalId<>-1";
+        int res = getRes(str);
+        return res==1;
+    }
+
     private int getRes(String str) {
         int res=0;
         Statement stm;
