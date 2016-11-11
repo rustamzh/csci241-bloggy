@@ -42,15 +42,21 @@ public class AdminPageController extends Controller{
         postRepository.createPost(new Date(), title, content, "Uncategorized", new User("head_admin", "123","admin", "Rustam Zhumagambetov"));
         AdminPageController.adminPage();
     }
-    public static void uploadPhoto(String title, File photo) {
-        Cloudinary cloudinary = new Cloudinary("CLOUDINARY_URL=cloudinary://297275137474391:2Dh-cCwMIig131jx9Vb-2r6sSMI@ruszh");
+    public static void uploadPhoto(File file) {
+        Cloudinary cloudinary = new Cloudinary("cloudinary://297275137474391:2Dh-cCwMIig131jx9Vb-2r6sSMI@ruszh");
+        if(file==null){
+            System.out.println("NULLLLLLLLLLLl");
+            renderJSON("{\"error\":false,\"path\":\""+/*uploadURL+*/"\"}");// or {"error":"filetype"} or {"error":"unknown"}
+        }
         Map uploadResult = null;
         try {
-            uploadResult = cloudinary.uploader().upload(photo, ObjectUtils.emptyMap());
+            uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         String uploadURL= (String)uploadResult.get("url");
+        System.out.println(uploadURL);
         renderJSON("{\"error\":false,\"path\":\""+uploadURL+"\"}");// or {"error":"filetype"} or {"error":"unknown"}
     }
 }
