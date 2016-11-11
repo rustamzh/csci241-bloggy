@@ -134,11 +134,7 @@
                 <textarea name="${field.name}" class="form-control" id="bodyContent" rows="16">${post?.body}</textarea>
                 <span class="error">#{error 'post.body' /}</span>
             #{/field}
-            #{form @uploadPhoto(), enctype:'multipart/form-data'}
-                <input type="text" name="title" />
-                <input type="file" id="photo" name="photo" />
-                <input type="submit" value="Send it..." />
-            #{/}
+
         </p>
 
 
