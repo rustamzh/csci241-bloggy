@@ -18,6 +18,7 @@ public class PostTestingImpl implements PostRepository {
     @Override
     public List<Post> getAllPosts() {
         if(firsttime) {
+            list.add(new Post(0,new Calendar.Builder().setDate(2016,10,8).build().getTime() ,"First post" ,"<p>This is the first post in this blog</p>","Uncategorized",new User("head_admin", "123","admin", "Rustam Zhumagambetov")));
             list.add(new Post(1, new Calendar.Builder().setDate(2016, 11, 8).build().getTime(), "Second post", "<p>This is the second post in this blog</p>", "Uncategorized", new User("head_admin", "123", "admin", "Rustam Zhumagambetov")));
             list.add(new Post(2, new Calendar.Builder().setDate(2016, 11, 8).build().getTime(), "Thirs post", "<p>This is the third post in this blog</p>", "Uncategorized", new User("head_admin", "123", "admin", "Rustam Zhumagambetov")));
             list.add(new Post(3, new Calendar.Builder().setDate(2016, 11, 8).build().getTime(), "Second post", "<p>This is the second post in this blog</p>", "Uncategorized", new User("head_admin", "123", "admin", "Rustam Zhumagambetov")));
@@ -69,6 +70,10 @@ public class PostTestingImpl implements PostRepository {
 
     @Override
     public boolean deletePost(int postId) {
+        for(Post p : list){
+            if(p.getPostId()==postId && list.remove(p))
+                return true;
+        }
         return false;
     }
 
@@ -95,5 +100,11 @@ public class PostTestingImpl implements PostRepository {
         list.add("Archive");
         list.add("Pictures");
         return list;
+    }
+
+    @Override
+    public boolean deleteAllPosts() {
+        list.clear();
+        return true;
     }
 }

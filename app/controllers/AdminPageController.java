@@ -34,6 +34,11 @@ public class AdminPageController extends Controller{
         AdminPageController.adminPage();
     }
 
+    public static void deleteAll(){
+        postRepository.deleteAllPosts();
+        AdminPageController.adminPage();
+    }
+
     public static void save(String title, String content){
         //Date date,String title, String body, String category, User user
         /*Logger.debug("A log message "+content);

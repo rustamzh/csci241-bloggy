@@ -16,4 +16,5 @@ public interface PostRepository {
     List<Post> getPostbyUser(User user);
     List<Post> getPostsbyDate(Date date);
     List<String> getAllCategories();
+    boolean deleteAllPosts();
 }
