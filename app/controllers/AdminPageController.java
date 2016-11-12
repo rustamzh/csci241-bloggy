@@ -6,6 +6,8 @@ import models.Approval;
 import models.Post;
 import models.User;
 import play.mvc.Controller;
+import play.mvc.Http;
+import play.mvc.Router;
 import repository.ApprovalRepository;
 import repository.Impl.ApprovalTestingRepositoryImpl;
 import repository.Impl.PostTestingImpl;
@@ -23,29 +25,59 @@ public class AdminPageController extends Controller{
     static PostRepository postRepository = new PostTestingImpl();
 
 
-    public static void adminPage(){
+    public static void adminPage(Post postedit){
         List<Approval> listappr = repo.getAllApprovalsforTable();
         List<Post> postList = postRepository.getAllPosts();
-        render(listappr, postList);
+        String error = flash.get("error");
+        render(listappr, postList, error, postedit);
     }
+
     public static void approveAll(){
 
         repo.deleteAllApprovals();
-        AdminPageController.adminPage();
+        AdminPageController.adminPage(null);
     }
 
     public static void deleteAll(){
         postRepository.deleteAllPosts();
-        AdminPageController.adminPage();
+        AdminPageController.adminPage(null);
+    }
+    public static void delete(int postid){
+        postRepository.deletePost(postid);
+        AdminPageController.adminPage(null);
     }
 
-    public static void save(String title, String content){
+    public static void save(String title, String content, int postid){
         //Date date,String title, String body, String category, User user
-        /*Logger.debug("A log message "+content);
-        System.out.println("A log message "+content);
-*/
-        postRepository.createPost(new Date(), title, content, "Uncategorized", new User("head_admin", "123","admin", "Rustam Zhumagambetov"));
-        AdminPageController.adminPage();
+        if(title==null||title.isEmpty() || content==null || content.isEmpty()){
+            flash.put("error", "Title and body cannot be empty");
+
+        }
+        if(new Integer(postid)!=null){
+            Post post = postRepository.getPost(postid);
+            post.setTitle(title);
+            post.setBody(content);
+            post.setDate(new Date());
+            postRepository.updatePost(postid, post);
+        }
+        else {
+            postRepository.createPost(new Date(), title, content, "Uncategorized", new User("head_admin", "123", "admin", "Rustam Zhumagambetov"));
+        }
+        AdminPageController.adminPage(null);
+    }
+
+    public static void edithelp(String title, String content){
+        //Date date,String title, String body, String category, User user
+        String param = flash.get("editID");
+
+        Post post=postRepository.getPost(Integer.parseInt(param));
+        save(title,content,post.getPostId());
+    }
+    public static void edit(int postid){
+        //Date date,String title, String body, String category, User user
+        Post postedit;
+        postedit=postRepository.getPost(postid);
+        AdminPageController.adminPage(postedit);
     }
     public static void uploadPhoto(File file) {
         Cloudinary cloudinary = new Cloudinary("cloudinary://297275137474391:2Dh-cCwMIig131jx9Vb-2r6sSMI@ruszh");
@@ -60,7 +92,7 @@ public class AdminPageController extends Controller{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String uploadURL= (String)uploadResult.get("url");
+        String uploadURL= (String)uploadResult.get("secure_url");
         System.out.println(uploadURL);
         renderJSON("{\"error\":false,\"path\":\""+uploadURL+"\"}");// or {"error":"filetype"} or {"error":"unknown"}
     }
