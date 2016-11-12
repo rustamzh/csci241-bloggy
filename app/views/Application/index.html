@@ -9,7 +9,7 @@
         <a href="#">${featuredPost.getTitle()}</a>
     </h2>
     <div class="post-metadata">
-        <span class="post-author">${featuredPost.getUser().getName()}</span>|
+        <span class="post-author">${featuredPost.getUser()}</span>|
         <span class="post-date">${featuredPost.getDate().format('MMM dd')}</span>
     </div>
     <div class="post-content">
@@ -50,7 +50,7 @@
                 </h2>
                 <div class="post-metadata">
                         <span class="post-author">
-                            ${post.getUser().getName()}
+                            ${post.getUser()}
                         </span>
                     <span class="post-date">
                             ${post.getDate().format('dd MMM yy')}

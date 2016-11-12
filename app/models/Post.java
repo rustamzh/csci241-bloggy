@@ -10,26 +10,26 @@ public class Post {
     private Date date;
     private String body;
     private String category;
-    private User user;
+    private String nickname;
 
     public Post(){}
 
-    public Post(int postId,int number_of_likes, Date date,String title, String body, String category, User user){
+    public Post(int postId,int number_of_likes, Date date,String title, String body, String category, String user){
         this.postId=postId;
         this.title=title;
         this.number_of_likes=number_of_likes;
         this.date=date;
         this.body=body;
         this.category=category;
-        this.user=user;
+        this.nickname=user;
     }
-    public Post(int number_of_likes, Date date,String title, String body, String category, User user){
+    public Post(int number_of_likes, Date date,String title, String body, String category, String user){
         this.number_of_likes=number_of_likes;
         this.date=date;
         this.title=title;
         this.body=body;
         this.category=category;
-        this.user=user;
+        this.nickname=user;
     }
 
     public int getPostId() {
@@ -72,12 +72,12 @@ public class Post {
         this.category = category;
     }
 
-    public User getUser() {
-        return user;
+    public String getUser() {
+        return nickname;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(String user) {
+        this.nickname = user;
     }
 
     public String getTitle() {

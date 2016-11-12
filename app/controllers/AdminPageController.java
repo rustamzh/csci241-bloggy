@@ -28,8 +28,9 @@ public class AdminPageController extends Controller{
     public static void adminPage(Post postedit){
         List<Approval> listappr = repo.getAllApprovalsforTable();
         List<Post> postList = postRepository.getAllPosts();
+        List<String> listCat = postRepository.getAllCategories();
         String error = flash.get("error");
-        render(listappr, postList, error, postedit);
+        render(listappr, postList, error, postedit, listCat);
     }
 
     public static void approveAll(){
@@ -47,31 +48,34 @@ public class AdminPageController extends Controller{
         AdminPageController.adminPage(null);
     }
 
-    public static void save(String title, String content, int postid){
+    public static void save(String title, String content, String categories, Integer postid){
         //Date date,String title, String body, String category, User user
+
         if(title==null||title.isEmpty() || content==null || content.isEmpty()){
             flash.put("error", "Title and body cannot be empty");
+            adminPage(null);
 
         }
-        if(new Integer(postid)!=null){
+        if(postid!=null){
             Post post = postRepository.getPost(postid);
             post.setTitle(title);
             post.setBody(content);
+            post.setCategory(categories);
             post.setDate(new Date());
             postRepository.updatePost(postid, post);
         }
         else {
-            postRepository.createPost(new Date(), title, content, "Uncategorized", new User("head_admin", "123", "admin", "Rustam Zhumagambetov"));
+            postRepository.createPost(new Date(), title, content, categories, "head_admin");
         }
         AdminPageController.adminPage(null);
     }
 
-    public static void edithelp(String title, String content){
+    public static void edithelp(String title, String content, String cat){
         //Date date,String title, String body, String category, User user
         String param = flash.get("editID");
 
         Post post=postRepository.getPost(Integer.parseInt(param));
-        save(title,content,post.getPostId());
+        save(title,content,cat,post.getPostId());
     }
     public static void edit(int postid){
         //Date date,String title, String body, String category, User user

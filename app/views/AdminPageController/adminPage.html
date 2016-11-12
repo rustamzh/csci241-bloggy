@@ -99,7 +99,7 @@
                     #{list items:postList, as:'posta'}
                     <tr>
                         <td>${posta.getTitle()}</td>
-                        <td>${posta.getUser().getName()}</td>
+                        <td>${posta.getUser()}</td>
                         <td>${posta.getDate().format('dd.MM.yy')}</td>
                         <td>${posta.getNumber_of_likes()}</td>
                     %{id=posta.getPostId()}%
@@ -155,6 +155,9 @@
                 #{/field}
 
             </p>
+            <p>
+                #{select 'categories', items:listCat, name:'toString()', value:5, class:'form-control'/}
+            </p>
 
             <p>
                 <input type="submit" class="btn btn-default" value="Publish this post to the blog"/>
@@ -190,6 +193,10 @@
                     <span class="error">#{error 'post.body' /}</span>
                 #{/field}
 
+            </p>
+
+            <p>
+                #{select 'categories', items:listCat, name:'toString()', value:5, class:'form-control'/}
             </p>
 
             <p>
