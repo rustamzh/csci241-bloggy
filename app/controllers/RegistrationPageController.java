@@ -48,7 +48,9 @@ public class RegistrationPageController extends Controller {
     	}
     	
     	if (name == null)
-    		name = " ";
+    		name = "Smith";
+    	else
+    		System.out.println(nickname + " " + name);
     	
     	if ( ur.createUser(nickname, password, "user", name) ) {
     		if ( !Security.authenticate(nickname, password) ) {
