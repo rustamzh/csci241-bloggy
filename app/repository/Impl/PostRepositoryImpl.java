@@ -11,9 +11,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import database.Database;
+import database.DatabaseJDBC;
+
 
 public class PostRepositoryImpl implements PostRepository{
-    Connection conn;
+    private Database database = DatabaseJDBC.getInstance();
+	private Connection conn = database.getConnection();
 
     @Override
     public List<Post> getAllPosts() {
