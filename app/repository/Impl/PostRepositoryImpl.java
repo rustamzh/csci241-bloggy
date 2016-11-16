@@ -16,6 +16,7 @@ import database.DatabaseJDBC;
 
 
 public class PostRepositoryImpl implements PostRepository{
+	
     private Database database = DatabaseJDBC.getInstance();
 	private Connection conn = database.getConnection();
 

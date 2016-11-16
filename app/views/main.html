@@ -22,7 +22,7 @@
         			#{if user}
         				#{if ( user.getType() && user.getType() == 'admin' ) }
         					<div class="btn-group">
-    							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     							${user.getNickname()} <span class="caret"></span></button>
     							<ul class="dropdown-menu" role="menu">
       								<li><a href="/admin" class="btn btn-sm btn-link">Admin Page</a></li>
@@ -32,7 +32,7 @@
 						#{/if}
 						#{else}
 							<div class="btn-group">
-    							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     							${user.getNickname()} <span class="caret"></span></button>
     							<ul class="dropdown-menu" role="menu">
       								<li><a href="@{Security.logout}" class="btn btn-sm btn-link">Log Out</a></li>

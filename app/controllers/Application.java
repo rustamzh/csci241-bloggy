@@ -6,6 +6,10 @@ import play.Play;
 import play.modules.paginate.ValuePaginator;
 import play.mvc.Before;
 import play.mvc.Controller;
+import repository.ApprovalRepository;
+import repository.PostRepository;
+import repository.Impl.ApprovalTestingRepositoryImpl;
+import repository.Impl.PostRepositoryImpl;
 
 import java.util.List;
 
@@ -13,7 +17,8 @@ import static controllers.AdminPageController.postRepository;
 
 public class Application extends Controller {
 
-
+	static ApprovalRepository repo=new ApprovalTestingRepositoryImpl();
+    static PostRepository postRepository = new PostRepositoryImpl();
 
     @Before
     static void addDefaults() {
