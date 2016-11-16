@@ -42,7 +42,10 @@ public class RegistrationPageController extends Controller {
     		registrationPage();
     	}
     	
-    	if ( ur.createUser(nickname, password, "user", email) ) {
+    	if (name == null)
+    		name = " ";
+    	
+    	if ( ur.createUser(nickname, password, "user", name) ) {
     		if ( !Security.authenticate(nickname, password) ) {
     			flash.put("error", "Some error occured! Please check connection and try to log in again");
         		LogInPageController.loginPage();
