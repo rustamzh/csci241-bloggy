@@ -34,7 +34,7 @@ public class Security extends Secure.Security {
     	return session.contains( "nickname" );
     }
     
-    static void logout() {
+    public static void logout() {
     	session.clear();
     	onDisconnected();
     }
