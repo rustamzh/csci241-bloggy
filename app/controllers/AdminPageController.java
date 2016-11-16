@@ -11,6 +11,7 @@ import play.mvc.Router;
 import play.mvc.With;
 import repository.ApprovalRepository;
 import repository.Impl.ApprovalTestingRepositoryImpl;
+import repository.Impl.PostRepositoryImpl;
 import repository.Impl.PostTestingImpl;
 import repository.PostRepository;
 
@@ -22,7 +23,7 @@ import java.util.Map;
 
 public class AdminPageController extends Controller{
     static ApprovalRepository repo=new ApprovalTestingRepositoryImpl();
-    static PostRepository postRepository = new PostTestingImpl();
+    static PostRepository postRepository = new PostRepositoryImpl();
 
 
     public static void adminPage(Post postedit){
