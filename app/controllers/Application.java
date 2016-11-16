@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Post;
+import models.User;
 import play.Play;
 import play.modules.paginate.ValuePaginator;
 import play.mvc.Before;
@@ -30,6 +31,8 @@ public class Application extends Controller {
         //listposts.add(0,featuredPost);
         ValuePaginator paginator = new ValuePaginator(listposts);
         paginator.setPageSize(5);
-        render(paginator, listCat);
+        
+        User user = Security.getConnectedUser();
+        render(paginator, listCat, user);
     }
 }
