@@ -16,7 +16,7 @@ public class DatabaseJDBC implements Database {
 	private static final String PORT = "3306";
 	private static final String SERVER = "vhw3t8e71xdz9k14.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
 	private static final String DATABASE = "dhrtt8tgflpynwmz";
-	private static final String DBMS = "MySQL";
+	private static final String DBMS = "mysql";
 	/*private static final String USER = "root";
 	private static final String PASSWORD = "123456789abc";
 	private static final String PORT = "3306";
