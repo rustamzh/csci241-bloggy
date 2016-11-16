@@ -11,8 +11,8 @@ import repository.Impl.UserRepositoryImpl;
 
 public class RegistrationPageController extends Controller {
 	
-	private Database database = DatabaseJDBC.getInstance();
-	private Connection conn = database.getConnection();
+	private static Database database = DatabaseJDBC.getInstance();
+	private static Connection conn = database.getConnection();
 	
 	public static void registrationPage() {
 		if ( Security.isConnected() )
@@ -39,6 +39,11 @@ public class RegistrationPageController extends Controller {
     	
     	if ( user != null ) {
     		flash.put("error", "User with this nickname is already registered!");
+    		registrationPage();
+    	}
+    	
+    	if ( conn == null ) {
+    		flash.put("error", "The connection to the database is null");
     		registrationPage();
     	}
     	
