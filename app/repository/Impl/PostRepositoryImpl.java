@@ -29,7 +29,7 @@ public class PostRepositoryImpl implements PostRepository{
             ResultSet rs = stm.executeQuery("select postId, number_of_likes, date, body, category, user_nickname, title from post");
             while(rs.next()){
                 //int approvalId, int commentId
-                list.add(new Post(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)), java.sql.Date.valueOf(rs.getString(3)),rs.getString(7) ,rs.getString(4),rs.getString(5),rs.getString(6)));
+                list.add(new Post(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)), java.sql.Date.valueOf(rs.getString(3).substring(0,9)),rs.getString(7) ,rs.getString(4),rs.getString(5),rs.getString(6)));
             }
         }catch (Exception ex){
             System.out.println(ex.getMessage());
