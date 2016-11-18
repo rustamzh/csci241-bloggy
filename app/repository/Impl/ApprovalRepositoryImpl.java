@@ -9,9 +9,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.Database;
+import database.DatabaseJDBC;
+
 
 public class ApprovalRepositoryImpl implements ApprovalRepository {
-    private Connection conn;
+	private Database database = DatabaseJDBC.getInstance();
+	private Connection conn = database.getConnection();
+	
     @Override
     public List<Approval> getAllApprovalsforTable() {
         List<Approval> list = new ArrayList<>();
