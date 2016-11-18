@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class PostRepositoryImpl implements PostRepository{
             e.printStackTrace();
         }
 
-        list.add(new Post(0, 3,new Calendar.Builder().setDate(2016,10,8).build().getTime() ,"First post" ,"<p>This is the first post in this blog</p>","Uncategorized","head_admin"));
+        //list.add(new Post(0, 3,new Calendar.Builder().setDate(2016,10,8).build().getTime() ,"First post" ,"<p>This is the first post in this blog</p>","Uncategorized","head_admin"));
         return list;
     }
 
