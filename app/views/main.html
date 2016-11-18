@@ -21,7 +21,7 @@
        			<div class="col-xs-3 col-xs-offset-9">
         			#{if user}
         				#{if ( user.getType() && user.getType() == 'admin' ) }
-        					<div class="btn-group">
+        					<div class="btn-group pull-right">
     							<button type="button" class="btn btn-default pull-right dropdown-toggle" data-toggle="dropdown">
     							${user.getNickname()} <span class="caret"></span></button>
     							<ul class="dropdown-menu" role="menu">
@@ -31,7 +31,7 @@
  							</div>	
 						#{/if}
 						#{else}
-							<div class="btn-group">
+							<div class="btn-group pull-right">
     							<button type="button" class="btn btn-default pull-right dropdown-toggle" data-toggle="dropdown">
     							${user.getNickname()} <span class="caret"></span></button>
     							<ul class="dropdown-menu" role="menu">
