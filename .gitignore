@@ -8,15 +8,15 @@ bin/
 /modules
 /project/target
 /target
-tmp/
+#tmp/
 test-result
 server.pid
 *.eml
 /dist/
 .cache
 /documentation
-.idea
-/out
+#.idea
+#/out
 
 data/
 db/

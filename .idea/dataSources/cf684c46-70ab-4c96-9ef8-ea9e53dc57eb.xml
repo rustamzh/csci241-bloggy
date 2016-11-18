@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="MySQL - @vhw3t8e71xdz9k14.cbetxkdyhwsb.us-east-1.rds.amazonaws.com">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
+    <schema id="1" name="dhrtt8tgflpynwmz">
+      <visible>1</visible>
+    </schema>
+    <schema id="2" name="information_schema"/>
+    <table id="3" parent="1" name="Approval"/>
+    <table id="4" parent="1" name="Comment"/>
+    <table id="5" parent="1" name="Post"/>
+    <table id="6" parent="1" name="User"/>
+    <table id="7" parent="1" name="User_Likes_Post"/>
+    <column id="8" parent="3" name="ApprovalId">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="9" parent="3" name="CommentId">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+    </column>
+    <index id="10" parent="3" name="ApprovalId_UNIQUE">
+      <columns>ApprovalId</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <index id="11" parent="3" name="CommentId_idx">
+      <columns>CommentId</columns>
+      <desc-columns></desc-columns>
+    </index>
+    <key id="12" parent="3" name="PRIMARY">
+      <columns>ApprovalId
+CommentId</columns>
+      <primary>1</primary>
+    </key>
+    <key id="13" parent="3" name="ApprovalId_UNIQUE">
+      <columns>ApprovalId</columns>
+      <underlying-index>ApprovalId_UNIQUE</underlying-index>
+    </key>
+    <foreign-key id="14" parent="3" name="CommentId">
+      <columns>CommentId</columns>
+      <ref-key>~.Comment.CommentId_UNIQUE</ref-key>
+      <cascade-update-rule>no_action</cascade-update-rule>
+      <cascade-delete-rule>no_action</cascade-delete-rule>
+    </foreign-key>
+    <column id="15" parent="4" name="CommentId">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="16" parent="4" name="Date">
+      <mandatory>1</mandatory>
+      <data-type>datetime|0</data-type>
+    </column>
+    <column id="17" parent="4" name="Body">
+      <mandatory>1</mandatory>
+      <data-type>mediumtext|0</data-type>
+    </column>
+    <column id="18" parent="4" name="Post_PostId">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+    </column>
+    <column id="19" parent="4" name="User_Nickname">
+      <mandatory>1</mandatory>
+      <data-type>varchar(15)|0</data-type>
+    </column>
+    <index id="20" parent="4" name="CommentId_UNIQUE">
+      <columns>CommentId</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <index id="21" parent="4" name="fk_Comment_Post1_idx">
+      <columns>Post_PostId</columns>
+      <desc-columns></desc-columns>
+    </index>
+    <index id="22" parent="4" name="fk_Comment_User1_idx">
+      <columns>User_Nickname</columns>
+      <desc-columns></desc-columns>
+    </index>
+    <key id="23" parent="4" name="PRIMARY">
+      <columns>CommentId
+Post_PostId
+User_Nickname</columns>
+      <primary>1</primary>
+    </key>
+    <key id="24" parent="4" name="CommentId_UNIQUE">
+      <columns>CommentId</columns>
+      <underlying-index>CommentId_UNIQUE</underlying-index>
+    </key>
+    <foreign-key id="25" parent="4" name="fk_Comment_Post1">
+      <columns>Post_PostId</columns>
+      <ref-key>~.Post.PostId_UNIQUE</ref-key>
+      <cascade-update-rule>no_action</cascade-update-rule>
+      <cascade-delete-rule>no_action</cascade-delete-rule>
+    </foreign-key>
+    <foreign-key id="26" parent="4" name="fk_Comment_User1">
+      <columns>User_Nickname</columns>
+      <ref-key>~.User.PRIMARY</ref-key>
+      <cascade-update-rule>no_action</cascade-update-rule>
+      <cascade-delete-rule>no_action</cascade-delete-rule>
+    </foreign-key>
+    <column id="27" parent="5" name="PostId">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="28" parent="5" name="Number_of_Likes">
+      <data-type>int(10) unsigned zerofill|0</data-type>
+    </column>
+    <column id="29" parent="5" name="Date">
+      <mandatory>1</mandatory>
+      <data-type>datetime|0</data-type>
+    </column>
+    <column id="30" parent="5" name="Body">
+      <mandatory>1</mandatory>
+      <data-type>mediumtext|0</data-type>
+    </column>
+    <column id="31" parent="5" name="Category">
+      <mandatory>1</mandatory>
+      <data-type>varchar(45)|0</data-type>
+      <default-expression>&apos;General&apos;</default-expression>
+    </column>
+    <column id="32" parent="5" name="User_Nickname">
+      <mandatory>1</mandatory>
+      <data-type>varchar(15)|0</data-type>
+    </column>
+    <index id="33" parent="5" name="fk_Post_User1_idx">
+      <columns>User_Nickname</columns>
+      <desc-columns></desc-columns>
+    </index>
+    <index id="34" parent="5" name="PostId_UNIQUE">
+      <columns>PostId</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <key id="35" parent="5" name="PRIMARY">
+      <columns>PostId
+User_Nickname</columns>
+      <primary>1</primary>
+    </key>
+    <key id="36" parent="5" name="PostId_UNIQUE">
+      <columns>PostId</columns>
+      <underlying-index>PostId_UNIQUE</underlying-index>
+    </key>
+    <foreign-key id="37" parent="5" name="fk_Post_User1">
+      <columns>User_Nickname</columns>
+      <ref-key>~.User.PRIMARY</ref-key>
+      <cascade-update-rule>no_action</cascade-update-rule>
+      <cascade-delete-rule>no_action</cascade-delete-rule>
+    </foreign-key>
+    <column id="38" parent="6" name="Nickname">
+      <mandatory>1</mandatory>
+      <data-type>varchar(15)|0</data-type>
+    </column>
+    <column id="39" parent="6" name="Name">
+      <mandatory>1</mandatory>
+      <data-type>varchar(20)|0</data-type>
+      <default-expression>&apos;Mr. Smith&apos;</default-expression>
+    </column>
+    <column id="40" parent="6" name="Password">
+      <mandatory>1</mandatory>
+      <data-type>varchar(20)|0</data-type>
+    </column>
+    <column id="41" parent="6" name="Type">
+      <mandatory>1</mandatory>
+      <data-type>varchar(15)|0</data-type>
+      <default-expression>&apos;Standard&apos;</default-expression>
+    </column>
+    <column id="42" parent="6" name="Email">
+      <data-type>varchar(45)|0</data-type>
+    </column>
+    <column id="43" parent="6" name="Avatar">
+      <data-type>tinytext|0</data-type>
+    </column>
+    <index id="44" parent="6" name="Email_UNIQUE">
+      <columns>Email</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <index id="45" parent="6" name="Nickname_UNIQUE">
+      <columns>Nickname</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <key id="46" parent="6" name="PRIMARY">
+      <columns>Nickname</columns>
+      <primary>1</primary>
+    </key>
+    <key id="47" parent="6" name="Nickname_UNIQUE">
+      <columns>Nickname</columns>
+      <underlying-index>Nickname_UNIQUE</underlying-index>
+    </key>
+    <key id="48" parent="6" name="Email_UNIQUE">
+      <columns>Email</columns>
+      <underlying-index>Email_UNIQUE</underlying-index>
+    </key>
+    <column id="49" parent="7" name="User_Nickname">
+      <mandatory>1</mandatory>
+      <data-type>varchar(15)|0</data-type>
+    </column>
+    <column id="50" parent="7" name="Post_PostId">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+    </column>
+    <index id="51" parent="7" name="fk_User_has_Post_Post1_idx">
+      <columns>Post_PostId</columns>
+      <desc-columns></desc-columns>
+    </index>
+    <index id="52" parent="7" name="fk_User_has_Post_User_idx">
+      <columns>User_Nickname</columns>
+      <desc-columns></desc-columns>
+    </index>
+    <key id="53" parent="7" name="PRIMARY">
+      <columns>User_Nickname
+Post_PostId</columns>
+      <primary>1</primary>
+    </key>
+    <foreign-key id="54" parent="7" name="fk_User_has_Post_User">
+      <columns>User_Nickname</columns>
+      <ref-key>~.User.Nickname_UNIQUE</ref-key>
+      <cascade-update-rule>no_action</cascade-update-rule>
+      <cascade-delete-rule>no_action</cascade-delete-rule>
+    </foreign-key>
+    <foreign-key id="55" parent="7" name="fk_User_has_Post_Post1">
+      <columns>Post_PostId</columns>
+      <ref-key>~.Post.PostId_UNIQUE</ref-key>
+      <cascade-update-rule>no_action</cascade-update-rule>
+      <cascade-delete-rule>no_action</cascade-delete-rule>
+    </foreign-key>
+  </database-model>
+</dataSource>
