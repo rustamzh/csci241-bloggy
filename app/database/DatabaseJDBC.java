@@ -1,21 +1,19 @@
 package database;
 
+import play.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import database.Database;
-
-import play.Logger;
-
 public class DatabaseJDBC implements Database {
 
-	private static final String USER = "v56jxrify4fkgzze";
-	private static final String PASSWORD = "whu1t5b83x003cw5";
-	private static final String PORT = "3306";
-	private static final String SERVER = "vhw3t8e71xdz9k14.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-	private static final String DATABASE = "dhrtt8tgflpynwmz";
+	private static final String USER = "r.zhumagambetov";
+	private static final String PASSWORD = "31NIHY1";
+	private static final String PORT = "80";
+	private static final String SERVER = "46.101.171.158";
+	private static final String DATABASE = "rustam_zhumagambetov";
 	private static final String DBMS = "mysql";
 	/*private static final String USER = "root";
 	private static final String PASSWORD = "123456789abc";
