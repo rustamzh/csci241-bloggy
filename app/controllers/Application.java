@@ -41,6 +41,7 @@ public class Application extends Controller {
         else
         	listposts = postRepository.getPostsbyCatgory(category);
         
+        System.out.println( "Number of posts in this category is " + listposts.size() );
         //int totalposts=listposts.size();
         List<String> listCat = postRepository.getAllCategories();
         //listposts.add(0,featuredPost);
