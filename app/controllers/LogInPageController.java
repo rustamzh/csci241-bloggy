@@ -24,7 +24,7 @@ public class LogInPageController extends Controller {
 	
 	public static void login(String nickname, String password) {
     	
-		if (nickname == null || password == null) {
+		if (nickname == null || password == null || nickname.isEmpty() || password.isEmpty()) {
     		flash.put("error", "The error occured. Try again!!!");
     		loginPage();
     	}

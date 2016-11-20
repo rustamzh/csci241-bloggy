@@ -8,7 +8,7 @@ public class Security extends Secure.Security {
 	
     static boolean authenticate(String nickname, String password) {
     	
-    	if (nickname == null || password == null)
+    	if (nickname == null || password == null || nickname.isEmpty() || password.isEmpty())
     		return false;
     	
     	UserRepository ur = new UserRepositoryImpl();

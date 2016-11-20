@@ -24,7 +24,7 @@ public class RegistrationPageController extends Controller {
 	
 	public static void register(String nickname, String password, String repeat_password, String name, String email, String avatar) {
     	
-		if (nickname == null || password == null || repeat_password == null) {
+		if (nickname == null || password == null || repeat_password == null || nickname.isEmpty() || password.isEmpty() || repeat_password.isEmpty()) {
     		flash.put("error", "You did not fill required fields completely!!!");
     		registrationPage();
     	}
