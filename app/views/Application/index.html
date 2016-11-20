@@ -1,6 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
+#{if curCategory && curCategory != 'Uncategorized'}
+	<h3>{$curCategory}</h3>
+#{/if}
+
 #{if featuredPost}
 <div class="post">
     <h2 class="post-title">

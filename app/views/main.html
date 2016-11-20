@@ -75,7 +75,7 @@
             #{if listCat}
                  #{list items:listCat, as:'cat'}
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#">${cat}</a></li>
+                    <li class="list-group-item"><a href="@{Application.setCategory(cat)}">${cat}</a></li>
                 </ul>
                  #{/list}
             </div>
