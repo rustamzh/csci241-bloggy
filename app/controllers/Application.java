@@ -46,8 +46,10 @@ public class Application extends Controller {
         ValuePaginator paginator = new ValuePaginator(listposts);
         paginator.setPageSize(5);
         
+        String category = curCategory;
+        
         User user = Security.getConnectedUser();
-        render(paginator, listCat, user, curCategory);
+        render(paginator, listCat, user, category);
     }
     
     public static void setCategory(String cat) {
