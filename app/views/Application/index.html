@@ -1,8 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-#{if curCategory }
-	<h3>${curCategory}</h3>
+#{if curCategory}
+	<div class="row">
+		<h3>${curCategory}</h3>
+	</div>
 #{/if}
 
 #{if featuredPost}
