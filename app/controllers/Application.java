@@ -50,8 +50,9 @@ public class Application extends Controller {
         render(paginator, listCat, user, curCategory);
     }
     
-    public static void setCategory(String category) {
-    	curCategory = category;
+    public static void setCategory(String cat) {
+    	curCategory = cat;
+    	System.out.println(curCategory);
     	index();
     }
 }
