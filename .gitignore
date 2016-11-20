@@ -15,7 +15,8 @@ server.pid
 /dist/
 .cache
 /documentation
-.idea
+.idea/
+.settings/
 /out
 
 data/
@@ -24,3 +25,10 @@ dist/
 logs/
 test-result/
 modules/
+eclipse/
+temp/
+
+.classpath
+.project
+pom.xml.bak
+
