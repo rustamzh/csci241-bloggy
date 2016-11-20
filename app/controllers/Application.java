@@ -26,7 +26,7 @@ public class Application extends Controller {
     static void addDefaults() {
         renderArgs.put("blogTitle", Play.configuration.getProperty("blog.title"));
         renderArgs.put("blogLead", Play.configuration.getProperty("blog.lead"));
-        curCategory = "Uncategorized";
+        curCategory = null;
     }
 
     public static void index() {
@@ -35,7 +35,7 @@ public class Application extends Controller {
 
         List<Post> listposts;
         
-        if (curCategory == null || curCategory.isEmpty() || curCategory.equals("Uncategorized"))
+        if (curCategory == null || curCategory.isEmpty())
         	listposts = postRepository.getAllPosts();
         else
         	listposts = postRepository.getPostsbyCatgory(curCategory);
