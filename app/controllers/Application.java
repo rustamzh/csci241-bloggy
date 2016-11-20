@@ -34,19 +34,18 @@ public class Application extends Controller {
         //int number_of_likes, Date date, String body, String category, String user_nickname
 
         List<Post> listposts;
+        String category = curCategory;
         
-        if (curCategory == null || curCategory.isEmpty())
+        if (category == null || category.isEmpty())
         	listposts = postRepository.getAllPosts();
         else
-        	listposts = postRepository.getPostsbyCatgory(curCategory);
+        	listposts = postRepository.getPostsbyCatgory(category);
         
         //int totalposts=listposts.size();
         List<String> listCat = postRepository.getAllCategories();
         //listposts.add(0,featuredPost);
         ValuePaginator paginator = new ValuePaginator(listposts);
         paginator.setPageSize(5);
-        
-        String category = curCategory;
         
         User user = Security.getConnectedUser();
         render(paginator, listCat, user, category);
