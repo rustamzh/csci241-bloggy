@@ -20,13 +20,13 @@ public class Application extends Controller {
 	static ApprovalRepository repo=new ApprovalTestingRepositoryImpl();
     static PostRepository postRepository = new PostRepositoryImpl();
     
-    private static String curCategory;
+    private static String curCategory = null;
     
     @Before
     static void addDefaults() {
         renderArgs.put("blogTitle", Play.configuration.getProperty("blog.title"));
         renderArgs.put("blogLead", Play.configuration.getProperty("blog.lead"));
-        curCategory = null;
+        //curCategory = null;
     }
 
     public static void index() {
