@@ -4,15 +4,10 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import models.Approval;
 import models.Post;
-import models.User;
 import play.mvc.Controller;
-import play.mvc.Http;
-import play.mvc.Router;
-import play.mvc.With;
 import repository.ApprovalRepository;
-import repository.Impl.ApprovalTestingRepositoryImpl;
+import repository.Impl.ApprovalRepositoryImpl;
 import repository.Impl.PostRepositoryImpl;
-import repository.Impl.PostTestingImpl;
 import repository.PostRepository;
 
 import java.io.File;
@@ -22,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminPageController extends Controller{
-    static ApprovalRepository repo=new ApprovalTestingRepositoryImpl();
+    static ApprovalRepository repo=new ApprovalRepositoryImpl();
     static PostRepository postRepository = new PostRepositoryImpl();
 
 

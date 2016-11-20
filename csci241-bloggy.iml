@@ -19,6 +19,7 @@
         <JAVADOC />
         <SOURCES>
           <root url="file://$MODULE_DIR$/../../../../../Misc/play-1.4.3/modules/docviewer/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Misc/play-1.4.3/modules/secure/app" />
         </SOURCES>
         <jarDirectory url="file://$MODULE_DIR$/../../../../../Misc/play-1.4.3/modules/docviewer/lib" recursive="false" />
         <jarDirectory url="file://$MODULE_DIR$/../../../../../Misc/play-1.4.3/modules/paginate-head/lib" recursive="false" />
