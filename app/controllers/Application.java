@@ -75,13 +75,17 @@ public class Application extends Controller {
     	index();
     }
     
-    public static void postComment(int postId, String author, String content) {
-    	if (author != null && !author.isEmpty() && content != null && !content.isEmpty()) {
-    		System.out.println(postId + " " + author + " " + content);
-    		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    public static void postComment(int postId, String content) {
+    	if (content != null && !content.isEmpty()) {
+    		String userNickname = Security.getConnectedUser().getNickname();
+    		
+    		System.out.println(postId + " " + userNickname + " " + content);
+    		
+    		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     		LocalDateTime now = LocalDateTime.now();
-    		if ( !commentRepository.createComment( dtf.format(now).toString(), content, postId, author) )
-    			flash.put("error", "The error with uploading comment occured");
+    		
+    		if ( !commentRepository.createComment( dtf.format(now).toString(), content, postId, userNickname ) )
+    			flash.put("error", "The error uploading comment occured");
         } else {
         	flash.put("error", "Some error with fields occured");
         }
