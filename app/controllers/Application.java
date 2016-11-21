@@ -70,7 +70,9 @@ public class Application extends Controller {
     }
     
     public static void postComment(int postId, String author, String content) {
-        commentRepository.createComment( (new Date()).toString(), content, postId, author);
-        index();
+    	if (author != null && !author.isEmpty() && content != null && !content.isEmpty())
+    		System.out.println(postId + " " + author + " " + content);
+        //commentRepository.createComment( (new Date()).toString(), content, postId, author);
+        //index();
     }
 }
