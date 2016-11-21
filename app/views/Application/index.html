@@ -78,6 +78,13 @@
 </div>
 #{/if}}*
 
+#{if error}
+	<div class="alert alert-warning">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  		<strong>Warning!</strong> ${error} 
+	</div>
+#{/if}
+
 #{if paginator}
         #{paginate.list items:paginator, as:'post'}
             <div class="post">

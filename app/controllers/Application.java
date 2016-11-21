@@ -60,7 +60,11 @@ public class Application extends Controller {
         paginator.setPageSize(5);
         
         User user = Security.getConnectedUser();
-        render(paginator, listCat, user, category);
+        
+        String error = flash.get("error");
+        flash.remove("error");
+        
+        render(paginator, listCat, user, category, error);
     }
     
     public static void setCategory(String cat) {
@@ -70,9 +74,13 @@ public class Application extends Controller {
     }
     
     public static void postComment(int postId, String author, String content) {
-    	if (author != null && !author.isEmpty() && content != null && !content.isEmpty())
+    	if (author != null && !author.isEmpty() && content != null && !content.isEmpty()) {
     		System.out.println(postId + " " + author + " " + content);
-        //commentRepository.createComment( (new Date()).toString(), content, postId, author);
+    		if ( !commentRepository.createComment( (new Date()).toString(), content, postId, author) )
+    			flash.put("error", "The error with uploading comment occured");
+        } else {
+        	flash.put("error", "Some error with fields occured");
+        }
         index();
     }
 }
