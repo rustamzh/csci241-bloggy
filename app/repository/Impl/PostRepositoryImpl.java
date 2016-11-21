@@ -89,7 +89,7 @@ public class PostRepositoryImpl implements PostRepository{
 
         try{
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("select postId, number_of_likes, date, body, category, user_nickname, title from post where category=\""+category+"\" ORDER BY date DESC ");
+            ResultSet rs = stm.executeQuery("select postId, number_of_likes, date, body, category, user_nickname, title from post where category='"+category+"' ORDER BY date DESC ");
             while(rs.next()){
                 //int approvalId, int commentId
                 list.add(new Post(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)), java.sql.Date.valueOf(rs.getString(3)),rs.getString(7) ,rs.getString(4),rs.getString(5),rs.getString(6)));
