@@ -13,6 +13,8 @@ import repository.Impl.ApprovalTestingRepositoryImpl;
 import repository.Impl.CommentRepositoryImpl;
 import repository.Impl.PostRepositoryImpl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,7 +78,9 @@ public class Application extends Controller {
     public static void postComment(int postId, String author, String content) {
     	if (author != null && !author.isEmpty() && content != null && !content.isEmpty()) {
     		System.out.println(postId + " " + author + " " + content);
-    		if ( !commentRepository.createComment( (new Date()).toString(), content, postId, author) )
+    		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    		LocalDateTime now = LocalDateTime.now();
+    		if ( !commentRepository.createComment( dtf.format(now).toString(), content, postId, author) )
     			flash.put("error", "The error with uploading comment occured");
         } else {
         	flash.put("error", "Some error with fields occured");
