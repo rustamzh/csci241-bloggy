@@ -73,6 +73,6 @@ public class Application extends Controller {
     	if (author != null && !author.isEmpty() && content != null && !content.isEmpty())
     		System.out.println(postId + " " + author + " " + content);
         //commentRepository.createComment( (new Date()).toString(), content, postId, author);
-        //index();
+        index();
     }
 }
