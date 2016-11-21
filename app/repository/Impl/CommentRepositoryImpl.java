@@ -40,7 +40,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public boolean createComment(String date, String body, int post_postId, String user_nickname) {
-        String str = "insert into comment (date, body, post_postId, user_nickname) values (\""+ Date.valueOf(date).toString()+"\",\""+body+"\",\""+post_postId+"\",\"" + user_nickname + "\")";
+        String str = "insert into comment (date, body, post_postId, user_nickname) values ('"+ Date.valueOf(date).toString()+"','"+body+"', "+post_postId+",'" + user_nickname + "')";
         int res = getRes(str);
         return res==1;
     }
