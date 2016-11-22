@@ -1,0 +1,80 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+#{if category}
+	<div class="row">
+		<h3 class="display-4">${category}</h3>
+	</div>
+#{/if}
+
+#{if error}
+	<div class="alert alert-warning">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  		<strong>Warning!</strong> ${error} 
+	</div>
+#{/if}
+
+<div class="post">
+	<h2 class="post-title">
+    	<a href="#">${post.getTitle()}</a>
+    </h2>
+   	<div class="post-metadata">
+   		<span class="post-author">
+        	${post.getUser()}
+        </span>
+        <span class="post-date">
+        	${post.getDate().format('dd MMM yy')}
+        </span>
+    </div>
+    
+    <div class="post-content">
+    	${post.getBody().raw().nl2br()}
+    </div>
+                
+    #{if user}
+ 		<form class="form-vertical" action="@{ Application.postComment( post.getPostId() ) }" method="POST" accept-charset="UTF-8">
+    		<div class="row form-group">	
+        		<label for="content">Your comment: </label>
+        		<textarea class="form-control" name="content" id="content"></textarea>
+    		</div>
+    		<div class="row form-group">
+        		<input type="submit" class="btn btn-default btn-block" value="Submit your comment" />
+   			</div>
+		</form>
+	#{/if}
+	
+	#{if commentList}
+	<div class="comments">
+		#{list items:listposts, as:'post'}
+        	<div class="post">
+            	<h2 class="post-title">
+                	<a href="#">${post.getTitle()}</a>
+            	</h2>
+            	<div class="post-metadata">
+               		<span class="post-author">
+                    	${post.getUser().getName()}
+                    </span>
+                	<span class="post-date">
+                    	${post.getDate().format('dd MMM yy')}
+                    </span>
+            	</div>
+            <div class="post-content">
+            	${comment.getBody().raw().nl2br()}
+            </div>
+            
+            #{if user}
+ 				
+			#{/if}
+        	</div>
+    	#{/list}
+    </div>
+	#{/if}
+</div>
+
+#{/if}
+
+#{else}
+<div class="empty">
+    There is currently nothing to read here.
+</div>
+#{/else}

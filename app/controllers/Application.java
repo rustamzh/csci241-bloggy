@@ -69,6 +69,18 @@ public class Application extends Controller {
         render(paginator, listCat, user, category, error);
     }
     
+    public static void articlePage(int postId) {
+    	
+    	Post post = postRepository.getPost(postId);
+    	String category = curCategory;
+    	List<String> listCat = postRepository.getAllCategories();
+    	User user = Security.getConnectedUser();
+    	String error = flash.get("error");
+        flash.remove("error");
+    	
+        render(post, listCat, user, category, error);
+    }
+    
     public static void setCategory(String cat) {
     	curCategory = cat;
     	System.out.println(curCategory);

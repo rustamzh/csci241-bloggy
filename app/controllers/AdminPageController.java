@@ -22,6 +22,9 @@ public class AdminPageController extends Controller{
 
 
     public static void adminPage(Post postedit){
+    	if ( !Security.isConnected() || !Security.getConnectedUser().getType().equals("admin") )
+    		Application.index();
+    	
         List<Approval> listappr = repo.getAllApprovalsforTable();
         List<Post> postList = postRepository.getAllPosts();
         List<String> listCat = postRepository.getAllCategories();

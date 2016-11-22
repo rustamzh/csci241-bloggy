@@ -21,54 +21,10 @@
     </div>
     
     #{if user}
- 		<form class="form-vertical" action="@{ Application.postComment( post.getPostId() ) }" method="POST" accept-charset="UTF-8">
-   			<div class="row form-group">	
-       			<label for="content">Your comment: </label>
-      			<textarea class="form-control" name="content" id="content"></textarea>
-    		</div>
-    		<div class="row form-group">
-        		<input type="submit" class="btn btn-default btn-block" value="Submit your comment" />
-   			</div>
-		</form>
+ 		
 	#{/if}
 </div>
 #{/if}
-
-*{ #{if listposts}}*
-*{<div class="posts">
-	#{list items:listposts, as:'post'}
-        <div class="post">
-            <h2 class="post-title">
-                <a href="#">${post.getTitle()}</a>
-            </h2>
-            <div class="post-metadata">
-                        <span class="post-author">
-                            ${post.getUser().getName()}
-                        </span>
-                <span class="post-date">
-                            ${post.getDate().format('dd MMM yy')}
-                        </span>
-
-            </div>
-            <div class="post-content">
-            ${featuredPost.getBody().raw().nl2br()}
-            </div>
-            
-            #{if user}
- 				<form class="form-vertical" action="@{ Application.postComment( post.getPostId() ) }" method="POST" accept-charset="UTF-8">
-    				<div class="row form-group">	
-        				<label for="content">Your comment: </label>
-        				<textarea class="form-control" name="content" id="content"></textarea>
-    				</div>
-    				<div class="row form-group">
-        				<input type="submit" class="btn btn-default btn-block" value="Submit your comment" />
-   					</div>
-				</form>
-			#{/if}
-        </div>
-    #{/list}
-</div>
-#{/if}}*
 
 #{if error}
 	<div class="alert alert-warning">
@@ -81,7 +37,7 @@
         #{paginate.list items:paginator, as:'post'}
             <div class="post">
                 <h2 class="post-title">
-                    <a href="#">${post.getTitle()}</a>
+                    <a href="Application.articlePage( post.getPostId() )">${post.getTitle()}</a>
                 </h2>
                 <div class="post-metadata">
                         <span class="post-author">
@@ -96,25 +52,18 @@
                 ${post.getBody().raw().nl2br()}
                 </div>
                 
-                <div class="btn-group">
-    				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-   					Comments <span class="caret"></span></button>
-    				<div class="col-xs-10 col-sm-6 dropdown-menu" role="menu">
-      					#{if user}
- 							<form class="form-vertical" action="@{ Application.postComment( post.getPostId() ) }" method="POST" accept-charset="UTF-8">
-    							<div class="row form-group">	
-        							<label for="content">Your comment: </label>
-        							<textarea class="form-control" name="content" id="content"></textarea>
-    							</div>
-    							<div class="row form-group">
-        							<input type="submit" class="btn btn-default btn-block" value="Submit your comment" />
-   								</div>
-							</form>
-						#{/if}
-						
-						
-    				</div>
-  				</div>
+      			#{if user}
+ 					<form class="form-vertical" action="@{ Application.postComment( post.getPostId() ) }" method="POST" accept-charset="UTF-8">
+    					<div class="row form-group">	
+       						<label for="content">Your comment: </label>
+        					<textarea class="form-control" name="content" id="content"></textarea>
+    					</div>
+    					<div class="row form-group">
+        					<input type="submit" class="btn btn-default btn-block" value="Submit your comment" />
+   						</div>
+					</form>
+				#{/if}
+							
             </div>
         #{/paginate.list}
 
