@@ -64,7 +64,7 @@ public class RegistrationPageController extends Controller {
     	else
     		System.out.println(nickname + " " + name);
     	
-    	if ( ur.createUser(nickname, password, type, name) ) {
+    	if ( ur.createUser(nickname, password, type, name, email, avatar) ) {
     		if ( !Security.authenticate(nickname, password) ) {
     			flash.put("error", "Some error occured! Please check connection and try to log in again");
         		LogInPageController.loginPage();
