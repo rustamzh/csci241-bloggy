@@ -126,6 +126,7 @@
         </div>
         #{/ifnot}
         #{if editor}
+        #{if postList}
             <div class="col-xs-12">
                 <h2 class="sub-header">Post stats</h2>
                 <div class="row">
@@ -165,6 +166,12 @@
                     </table>
                 </div>
             </div>
+        #{/if}
+        #{else }
+
+            <h2>It is time to write new post</h2>
+
+        #{/else}
         #{/if}
     </div>
 
