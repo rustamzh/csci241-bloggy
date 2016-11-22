@@ -123,4 +123,9 @@ public class PostTestingImpl implements PostRepository {
     public boolean incrementLike(int postId) {
         return false;
     }
+
+    @Override
+    public boolean decrementLike(int postId) {
+        return false;
+    }
 }
