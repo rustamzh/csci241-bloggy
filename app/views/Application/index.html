@@ -37,7 +37,7 @@
         #{paginate.list items:paginator, as:'post'}
             <div class="post">
                 <h2 class="post-title">
-                    <a href="Application.articlePage( post.getPostId() )">${post.getTitle()}</a>
+                    <a href="@{ Application.articlePage( post.getPostId() } )">${post.getTitle()}</a>
                 </h2>
                 <div class="post-metadata">
                         <span class="post-author">
