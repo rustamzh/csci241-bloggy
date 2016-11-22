@@ -25,7 +25,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
         try{
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("select * from comment");
+            ResultSet rs = stm.executeQuery("select * from comment order by date desc");
             while(rs.next()){
                 //int commentId, String date, String body, int post_postId, String user_nickname
                 list.add(new Comment(Integer.parseInt(rs.getString(1)),rs.getString(2),rs.getString(3),Integer.parseInt(rs.getString(4)),rs.getString(5)));
