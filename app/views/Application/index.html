@@ -38,6 +38,9 @@
             <div class="post">
                 <h2 class="post-title">
                     <a href="@{ Application.articlePage( post.getPostId() ) }">${post.getTitle()}</a>
+                    <a class="btn btn-default pull-right" href="Application.updateNumberOfLikes(post.getPostId(), user.getNickname(), 'h')">
+     					<img src="https://vk.com/away.php?to=http%3A%2F%2Fres.cloudinary.com%2Fruszh%2Fimage%2Fupload%2Fv1479843178%2Fntncidrqsgleqvoisr69.png" width="20" /> ${post.getNumber_of_likes()}
+					</a>
                 </h2>
                 <div class="post-metadata">
                         <span class="post-author">

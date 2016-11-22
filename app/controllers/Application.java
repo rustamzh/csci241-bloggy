@@ -10,10 +10,12 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import repository.ApprovalRepository;
 import repository.CommentRepository;
+import repository.LikeRepository;
 import repository.PostRepository;
 import repository.UserRepository;
 import repository.Impl.ApprovalTestingRepositoryImpl;
 import repository.Impl.CommentRepositoryImpl;
+import repository.Impl.LikeRepositoryImpl;
 import repository.Impl.PostRepositoryImpl;
 import repository.Impl.UserRepositoryImpl;
 
@@ -31,6 +33,7 @@ public class Application extends Controller {
     static PostRepository postRepository = new PostRepositoryImpl();
     static CommentRepository commentRepository = new CommentRepositoryImpl();
     static UserRepository userRepository = new UserRepositoryImpl();
+    static LikeRepository likeRepository = new LikeRepositoryImpl();
     
     private static String curCategory = null;
     
@@ -124,5 +127,16 @@ public class Application extends Controller {
         paginator.setPageSize(5);
         List<String> listCat = postRepository.getAllCategories();
         render(paginator, listCat, s);
+    }
+    
+    public static void updateNumberOfLikes(int postId, String nickname, char page) {
+    	
+    	if ( !likeRepository.createLike(nickname, postId) )
+    		likeRepository.deleteLike(nickname, postId);
+    	
+    	if (page == 'h')
+    		index();
+    	else
+    		articlePage(postId);
     }
 }
