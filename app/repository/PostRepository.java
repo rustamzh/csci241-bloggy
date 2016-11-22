@@ -17,4 +17,5 @@ public interface PostRepository {
     List<Post> getPostsbyDate(Date date);
     List<String> getAllCategories();
     boolean deleteAllPosts();
+    List<Post> seacrhPost(String s);
 }

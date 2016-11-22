@@ -165,6 +165,27 @@ public class PostRepositoryImpl implements PostRepository{
         int res = getRes(str);
         return res==1;
     }
+
+    @Override
+    public List<Post> seacrhPost(String s) {
+        //select * from post where post.body like '%platea%' or post.title like '%platea%'
+        List<Post> list = new ArrayList<>();
+        try {
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("select * from post where post.body like '%"+s+"%' or post.title like '%"+s+"%' ORDER BY date DESC ");
+            while(rs.next()){
+                //int approvalId, int commentId
+                //System.out.println(Integer.parseInt(rs.getString(1))+" "+ Integer.parseInt(rs.getString(2))+" "+ java.sql.Date.valueOf(rs.getString(3).substring(0,10))+" "+rs.getString(7)+" "+rs.getString(4)+""+rs.getString(5)+" "+rs.getString(6));
+                list.add(new Post(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)), java.sql.Date.valueOf(rs.getString(3).substring(0,10)),rs.getString(7) ,rs.getString(4),rs.getString(5),rs.getString(6)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //list.add(new Post(0, 3,new Calendar.Builder().setDate(2016,10,8).build().getTime() ,"First post" ,"<p>This is the first post in this blog</p>","Uncategorized","head_admin"));
+        return list;
+    }
+
     private int getRes(String str) {
         int res=0;
         Statement stm;

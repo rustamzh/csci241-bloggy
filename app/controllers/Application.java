@@ -91,4 +91,12 @@ public class Application extends Controller {
         }
         index();
     }
+
+    public static void Search(String s){
+        List<Post> listposts = postRepository.seacrhPost(s);
+        ValuePaginator paginator = new ValuePaginator(listposts);
+        paginator.setPageSize(5);
+        List<String> listCat = postRepository.getAllCategories();
+        render(paginator, listCat, s);
+    }
 }

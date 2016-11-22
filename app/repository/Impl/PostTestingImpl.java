@@ -113,4 +113,9 @@ public class PostTestingImpl implements PostRepository {
         list.clear();
         return true;
     }
+
+    @Override
+    public List<Post> seacrhPost(String s) {
+        return null;
+    }
 }
