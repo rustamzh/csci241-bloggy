@@ -22,7 +22,7 @@ public class RegistrationPageController extends Controller {
         render(error);
     }
 	
-	public static void register(String nickname, String password, String repeat_password, String name, String email, String avatar) {
+	public static void register(String nickname, String password, String repeat_password, String name, String email, String promocode, String avatar) {
     	
 		if (nickname == null || password == null || repeat_password == null || nickname.isEmpty() || password.isEmpty() || repeat_password.isEmpty()) {
     		flash.put("error", "You did not fill required fields completely!!!");
@@ -36,7 +36,13 @@ public class RegistrationPageController extends Controller {
     	
     	UserRepository ur = new UserRepositoryImpl();
     	User user = ur.getUser(nickname);
-    	
+
+		String type = "user";
+
+		if(promocode.equals("nueditor")){
+			type="editor";
+		}
+
     	if ( user != null ) {
     		flash.put("error", "User with this nickname is already registered!");
     		registrationPage();
@@ -52,7 +58,7 @@ public class RegistrationPageController extends Controller {
     	else
     		System.out.println(nickname + " " + name);
     	
-    	if ( ur.createUser(nickname, password, "user", name) ) {
+    	if ( ur.createUser(nickname, password, type, name) ) {
     		if ( !Security.authenticate(nickname, password) ) {
     			flash.put("error", "Some error occured! Please check connection and try to log in again");
         		LogInPageController.loginPage();
