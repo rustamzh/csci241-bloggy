@@ -17,6 +17,11 @@
 <div class="post">
 	<h2 class="post-title">
     	<a href="#">${post.getTitle()}</a>
+    	#{if user}
+        	<a class="btn btn-default pull-right" href="@{ Application.updateNumberOfLikes(post.getPostId(), user.getNickname(), "article") }">
+     			<span class="glyphicon glyphicon-thumbs-up"></span> ${post.getNumber_of_likes()}
+			</a>
+		#{/if}
     </h2>
    	<div class="post-metadata">
    		<span class="post-author">

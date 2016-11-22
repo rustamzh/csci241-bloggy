@@ -132,8 +132,12 @@ public class Application extends Controller {
     public static void updateNumberOfLikes(int postId, String nickname, String page) {
     	
     	System.out.println("PostID: " + postId + ", Nickname: " + nickname);
-    	if ( !likeRepository.createLike(nickname, postId) )
+    	if ( !likeRepository.createLike(nickname, postId) ) {
     		likeRepository.deleteLike(nickname, postId);
+    		postRepository.decrementLike(postId);
+    	} else {
+    		postRepository.incrementLike(postId);
+    	}
     	
     	if (page.equals("home"))
     		index();
