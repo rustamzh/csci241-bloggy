@@ -3,6 +3,7 @@ package controllers;
 import models.Comment;
 import models.Post;
 import models.User;
+import models.UserComment;
 import play.Play;
 import play.modules.paginate.ValuePaginator;
 import play.mvc.Before;
@@ -10,9 +11,11 @@ import play.mvc.Controller;
 import repository.ApprovalRepository;
 import repository.CommentRepository;
 import repository.PostRepository;
+import repository.UserRepository;
 import repository.Impl.ApprovalTestingRepositoryImpl;
 import repository.Impl.CommentRepositoryImpl;
 import repository.Impl.PostRepositoryImpl;
+import repository.Impl.UserRepositoryImpl;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,6 +30,7 @@ public class Application extends Controller {
 	static ApprovalRepository repo=new ApprovalTestingRepositoryImpl();
     static PostRepository postRepository = new PostRepositoryImpl();
     static CommentRepository commentRepository = new CommentRepositoryImpl();
+    static UserRepository userRepository = new UserRepositoryImpl();
     
     private static String curCategory = null;
     
@@ -80,8 +84,15 @@ public class Application extends Controller {
         flash.remove("error");
     	
         List<Comment> commentList = commentRepository.getAllComments(postId);
+        List<UserComment> userCommentList = new ArrayList();
         
-        render(post, listCat, user, category, error, commentList);
+        for ( Comment comment: commentList ) {
+        	User commentUser = userRepository.getUser( comment.getUser_nickname() );
+        	UserComment userComment = new UserComment(commentUser.getName(), commentUser.getNickname(), commentUser.getAvatar(), comment);
+        	userCommentList.add( userComment );
+        }
+        
+        render(post, listCat, user, category, error, userCommentList);
     }
     
     public static void setCategory(String cat) {
