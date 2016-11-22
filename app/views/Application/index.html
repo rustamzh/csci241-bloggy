@@ -38,7 +38,7 @@
             <div class="post">
                 <h2 class="post-title">
                     <a href="@{ Application.articlePage( post.getPostId() ) }">${post.getTitle()}</a>
-                    <a class="btn btn-default pull-right" href="@{ Application.updateNumberOfLikes(post.getPostId(), user.getNickname(), 'h') }">
+                    <a class="btn btn-default pull-right" href="@{ Application.updateNumberOfLikes(post.getPostId(), user.getNickname(), "home") }">
      					<span class="glyphicon glyphicon-thumbs-up"></span> ${post.getNumber_of_likes()}
 					</a>
                 </h2>

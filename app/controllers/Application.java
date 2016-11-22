@@ -129,12 +129,12 @@ public class Application extends Controller {
         render(paginator, listCat, s);
     }
     
-    public static void updateNumberOfLikes(int postId, String nickname, char page) {
+    public static void updateNumberOfLikes(int postId, String nickname, String page) {
     	
     	if ( !likeRepository.createLike(nickname, postId) )
     		likeRepository.deleteLike(nickname, postId);
     	
-    	if (page == 'h')
+    	if (page.equals("home"))
     		index();
     	else
     		articlePage(postId);
