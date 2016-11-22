@@ -43,20 +43,20 @@
 		</form>
 	#{/if}
 	
-	#{if commentList}
+	#{if userCommentList}
 	<div class="comments">
-		#{list items: commentList, as:'comment'}
+		#{list items: userCommentList, as:'comment'}
         	<div class="comment">
             	<div class="comment-metadata">
                		<span class="post-author">
-                    	${comment.getUser_nickname()}
+                    	${comment.getName()}
                     </span>
                 	<span class="post-date">
-                    	${comment.getDate().format('dd MMM yy hh:mm')}
+                    	${comment.getComment().getDate().format('dd MMM yy hh:mm')}
                     </span>
             	</div>
             	<div class="post-content">
-            		${comment.getBody().raw().nl2br()}
+            		${comment.getComment().getBody().raw().nl2br()}
             	</div>
             	<br/>
         	</div>
