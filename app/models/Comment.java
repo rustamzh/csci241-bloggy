@@ -1,9 +1,14 @@
 package models;
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Comment {
     private int commentId;
-    private String date;
+    private Date date;
     private String body;
     private int post_postId;
     private String user_nickname;
@@ -12,14 +17,24 @@ public class Comment {
 
     public Comment(String date, String body, int post_postId, String user_nickname){
         this.body=body;
-        this.date=date;
+        DateFormat inFormat = new SimpleDateFormat( "yyyy-MM-dd hh:mm:ss");
+        try {
+            this.date = inFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         this.post_postId=post_postId;
         this.user_nickname=user_nickname;
     }
     public Comment(int commentId, String date, String body, int post_postId, String user_nickname){
         this.commentId=commentId;
         this.body=body;
-        this.date=date;
+        DateFormat inFormat = new SimpleDateFormat( "yyyy-MM-dd hh:mm:ss");
+        try {
+            this.date = inFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         this.post_postId=post_postId;
         this.user_nickname=user_nickname;
     }
@@ -33,11 +48,11 @@ public class Comment {
         this.commentId = commentId;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
