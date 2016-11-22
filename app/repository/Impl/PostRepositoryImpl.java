@@ -57,7 +57,7 @@ public class PostRepositoryImpl implements PostRepository{
                 return post=null;
             }
             while(rs.next()){
-                post= (new Post(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)), java.sql.Date.valueOf(rs.getString(3)),rs.getString(7) ,rs.getString(4),rs.getString(5),rs.getString(6)));
+                post= (new Post(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)), java.sql.Date.valueOf(rs.getString(3).substring(0,10)),rs.getString(7) ,rs.getString(4),rs.getString(5),rs.getString(6)));
 
             }
         }catch (Exception ex){
@@ -92,7 +92,7 @@ public class PostRepositoryImpl implements PostRepository{
             ResultSet rs = stm.executeQuery("select postId, number_of_likes, date, body, category, user_nickname, title from post where category='"+category+"' ORDER BY date DESC ");
             while(rs.next()){
                 //int approvalId, int commentId
-                list.add(new Post(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)), java.sql.Date.valueOf(rs.getString(3)),rs.getString(7) ,rs.getString(4),rs.getString(5),rs.getString(6)));
+                list.add(new Post(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)), java.sql.Date.valueOf(rs.getString(3).substring(0,10)),rs.getString(7) ,rs.getString(4),rs.getString(5),rs.getString(6)));
             }
         }catch (Exception ex){
             System.out.println(ex.getMessage());
@@ -111,7 +111,7 @@ public class PostRepositoryImpl implements PostRepository{
             ResultSet rs = stm.executeQuery("select postId, number_of_likes, date, body, category, user_nickname, title from post where user_nickname=\""+user+"\" ORDER BY date DESC ");
             while(rs.next()){
                 //int approvalId, int commentId
-                list.add(new Post(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)), java.sql.Date.valueOf(rs.getString(3)),rs.getString(7) ,rs.getString(4),rs.getString(5),rs.getString(6)));
+                list.add(new Post(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)), java.sql.Date.valueOf(rs.getString(3).substring(0,10)),rs.getString(7) ,rs.getString(4),rs.getString(5),rs.getString(6)));
             }
         }catch (Exception ex){
             System.out.println(ex.getMessage());
@@ -130,7 +130,7 @@ public class PostRepositoryImpl implements PostRepository{
             ResultSet rs = stm.executeQuery("select postId, number_of_likes, date, body, category, user_nickname, title from post where date="+new SimpleDateFormat().format(date));
             while(rs.next()){
                 //int approvalId, int commentId
-                list.add(new Post(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)), java.sql.Date.valueOf(rs.getString(3)),rs.getString(7) ,rs.getString(4),rs.getString(5),rs.getString(6)));
+                list.add(new Post(Integer.parseInt(rs.getString(1)), Integer.parseInt(rs.getString(2)), java.sql.Date.valueOf(rs.getString(3).substring(0,10)),rs.getString(7) ,rs.getString(4),rs.getString(5),rs.getString(6)));
             }
         }catch (Exception ex){
             System.out.println(ex.getMessage());

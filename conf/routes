@@ -16,6 +16,8 @@ GET     /public/                                staticDir:public
 
 GET     /admin                                  AdminPageController.adminPage
 
+
+
 POST    /uploadPhoto                            AdminPageController.uploadPhoto
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}

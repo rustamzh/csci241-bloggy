@@ -45,8 +45,13 @@
     <div class="row">
         <div class="col-xs-6">
             <h2 class="sub-header">Comments waiting for approval</h2>
+        #{form @AdminPageController.approveSelected(), enctype:'multipart/form-data'}
+
             <div class="row">
-                <div class="col-xs-3 col-xs-offset-9">
+                <div class="col-xs-3 col-xs-offset-6">
+                    <input type="submit" class="btn btn-default btn-success" value="Approve selected"/>
+                </div>
+                <div class="col-xs-3">
                     <a type="button" class="btn btn-default btn-success" href="@{AdminPageController.approveAll()}">Approve
                         All</a>
                 </div>
@@ -62,19 +67,22 @@
                         <th>Delete</th>
                     </tr>
                     </thead>
+
                     <tbody>
                     #{list items:listappr, as:'appr'}
                     <tr>
                         <td>${appr.getTitle()}</td>
                         <td>${appr.getUser_nickname()}</td>
                         <td>${appr.getComment_body()}</td>
-                        <td>checkbox</td>
-                        <td>sit</td>
+                        <td><input type="checkbox" name="selectedTerms" value="${appr.getApprovalId()}"/></td>
+                        <td><a type="button" class="btn btn-sm btn-danger" href="@{AdminPageController.deleteApproval(appr.getApprovalId())}">Delete</a></td>
                     </tr>
                     #{/list}
                     </tbody>
+
                 </table>
             </div>
+        #{/form}
         </div>
         <div class="col-xs-6">
             <h2 class="sub-header">Post stats</h2>
