@@ -45,31 +45,26 @@
 	
 	#{if commentList}
 	<div class="comments">
-		#{list items:listposts, as:'post'}
-        	<div class="post">
-            	<h2 class="post-title">
-                	<a href="#">${post.getTitle()}</a>
-            	</h2>
-            	<div class="post-metadata">
+		#{list items: commentList, as:'comment'}
+        	<div class="comment">
+            	<div class="comment-metadata">
                		<span class="post-author">
-                    	${post.getUser().getName()}
+                    	${comment.getUser_nickname()}
                     </span>
                 	<span class="post-date">
-                    	${post.getDate().format('dd MMM yy')}
+                    	${comment.getDate().format('dd MMM yy')}
                     </span>
             	</div>
-            <div class="post-content">
-            	${comment.getBody().raw().nl2br()}
-            </div>
-            
-            #{if user}
- 				
-			#{/if}
+            	<div class="post-content">
+            		${comment.getBody().raw().nl2br()}
+            	</div>
         	</div>
     	#{/list}
     </div>
 	#{/if}
 </div>
+
+<br/>
 
 #{else}
 <div class="empty">

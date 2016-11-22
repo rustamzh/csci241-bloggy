@@ -51,18 +51,6 @@
                 <div class="post-content">
                 ${post.getBody().raw().nl2br()}
                 </div>
-                
-      			#{if user}
- 					<form class="form-vertical" action="@{ Application.postComment( post.getPostId() ) }" method="POST" accept-charset="UTF-8">
-    					<div class="row form-group">	
-       						<label for="content">Your comment: </label>
-        					<textarea class="form-control" name="content" id="content"></textarea>
-    					</div>
-    					<div class="row form-group">
-        					<input type="submit" class="btn btn-default btn-block" value="Submit your comment" />
-   						</div>
-					</form>
-				#{/if}
 							
             </div>
         #{/paginate.list}

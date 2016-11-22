@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Comment;
 import models.Post;
 import models.User;
 import play.Play;
@@ -78,7 +79,9 @@ public class Application extends Controller {
     	String error = flash.get("error");
         flash.remove("error");
     	
-        render(post, listCat, user, category, error);
+        List<Comment> commentList = commentRepository.getAllComments(postId);
+        
+        render(post, listCat, user, category, error, commentList);
     }
     
     public static void setCategory(String cat) {
