@@ -69,7 +69,7 @@ public class AdminPageController extends Controller{
             postRepository.updatePost(postid, post);
         }
         else {
-            postRepository.createPost(new Date(), title, content, categories, "head_admin");
+            postRepository.createPost(new Date(), title, content, categories, Security.getConnectedUser().getNickname());
         }
         AdminPageController.adminPage(null);
     }
