@@ -18,4 +18,6 @@ public interface PostRepository {
     List<String> getAllCategories();
     boolean deleteAllPosts();
     List<Post> seacrhPost(String s);
+    boolean incrementLike(int postId);
+    boolean decrementLike(int postId);
 }

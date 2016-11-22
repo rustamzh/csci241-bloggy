@@ -186,6 +186,20 @@ public class PostRepositoryImpl implements PostRepository{
         return list;
     }
 
+    @Override
+    public boolean incrementLike(int postId) {
+        String str = "update post set number_of_likes=number_of_likes+1 where postId="+postId;
+        int res = getRes(str);
+        return res==1;
+    }
+
+    @Override
+    public boolean decrementLike(int postId) {
+        String str = "update post set number_of_likes=number_of_likes-1 where postId="+postId;
+        int res = getRes(str);
+        return res==1;
+    }
+
     private int getRes(String str) {
         int res=0;
         Statement stm;

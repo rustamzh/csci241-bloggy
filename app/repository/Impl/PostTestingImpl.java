@@ -118,4 +118,9 @@ public class PostTestingImpl implements PostRepository {
     public List<Post> seacrhPost(String s) {
         return null;
     }
+
+    @Override
+    public boolean incrementLike(int postId) {
+        return false;
+    }
 }
