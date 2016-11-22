@@ -104,7 +104,7 @@ public class Application extends Controller {
         } else {
         	flash.put("error", "Some error with fields occured");
         }
-        index();
+        articlePage(postId);
     }
 
     public static void Search(String s){
