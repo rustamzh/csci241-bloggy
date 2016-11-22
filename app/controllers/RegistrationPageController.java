@@ -1,6 +1,12 @@
 package controllers;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
+import java.util.Map;
+
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 import database.Database;
 import database.DatabaseJDBC;

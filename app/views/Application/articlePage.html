@@ -48,11 +48,11 @@
 		#{list items: userCommentList, as:'comment'}
         	<div class="comment">
             	<div class="comment-metadata">
-               		<span class="post-author">
+               		<span class="post-author ">
                     	${comment.getName()}
                     </span>
-                	<span class="post-date">
-                    	${comment.getComment().getDate().format('dd MMM yy hh:mm')}
+                	<span class="post-date pull-right">
+                    	${comment.getComment().getDate().format('dd MMM yy hh:mm:ss')}
                     </span>
             	</div>
             	<div class="post-content">
