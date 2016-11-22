@@ -22,13 +22,18 @@ public class AdminPageController extends Controller{
 
 
     public static void adminPage(Post postedit){
-    	if ( !Security.isConnected() || !Security.getConnectedUser().getType().equals("admin") )
+    	if ( !Security.isConnected() || (!Security.getConnectedUser().getType().equals("admin") && !Security.getConnectedUser().getType().equals("editor")) )
     		Application.index();
-    	
+
         List<Approval> listappr = repo.getAllApprovalsforTable();
         List<Post> postList = postRepository.getAllPosts();
         List<String> listCat = postRepository.getAllCategories();
         String error = flash.get("error");
+        String editor = "editor";
+        if(Security.isConnected() || Security.getConnectedUser().getType().equals("editor")){
+            postList = postRepository.getPostbyUser(Security.getConnectedUser().getNickname());
+            render(listappr, postList, error, postedit, listCat, editor);
+        }
         render(listappr, postList, error, postedit, listCat);
     }
 

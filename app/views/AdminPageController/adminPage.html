@@ -43,6 +43,7 @@
     </div>
 
     <div class="row">
+        #{ifnot editor}
         <div class="col-xs-6">
             <h2 class="sub-header">Comments waiting for approval</h2>
         #{form @AdminPageController.approveSelected(), enctype:'multipart/form-data'}
@@ -123,6 +124,55 @@
                 </table>
             </div>
         </div>
+        #{/ifnot}
+        #{if editor}
+        #{if postList}
+            <div class="col-xs-12">
+                <h2 class="sub-header">Post stats</h2>
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-9">
+                        <a type="button" class="btn btn-default btn-danger" href="@{AdminPageController.deleteAll()}">Delete
+                            All posts</a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Post title</th>
+                            <th>Author</th>
+                            <th>Date</th>
+                            <th>Likes</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            #{list items:postList, as:'posta'}
+                            <tr>
+                                <td>${posta.getTitle()}</td>
+                                <td>${posta.getUser()}</td>
+                                <td>${posta.getDate().format('dd.MM.yy')}</td>
+                                <td>${posta.getNumber_of_likes()}</td>
+                            %{id=posta.getPostId()}%
+                                <td><a type="button" class="btn btn-sm btn-primary"
+                                       href="@{AdminPageController.edit(id)}">Edit</a></td>
+                                <td><a type="button" class="btn btn-sm btn-danger"
+                                       href="@{AdminPageController.delete(id)}">Delete</a></td>
+                            </tr>
+                            #{/list}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        #{/if}
+        #{else }
+
+            <h2>It is time to write new post</h2>
+
+        #{/else}
+        #{/if}
     </div>
 
     <div class="row">

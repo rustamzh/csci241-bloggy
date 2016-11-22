@@ -20,7 +20,7 @@
         	<div class="row">
        			<div class="col-xs-3 col-xs-offset-9">
         			#{if user}
-        				#{if ( user.getType() && user.getType() == 'admin' ) }
+        				#{if ( user.getType() && (user.getType() == 'admin' || user.getType() == 'editor') ) }
         					<div class="btn-group pull-right">
     							<button type="button" class="btn btn-default pull-right dropdown-toggle" data-toggle="dropdown">
     							${user.getNickname()} <span class="caret"></span></button>
