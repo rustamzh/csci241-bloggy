@@ -69,6 +69,10 @@ public class AdminPageController extends Controller{
             postRepository.updatePost(postid, post);
         }
         else {
+            System.out.println(title);
+            System.out.println(content);
+            System.out.println(categories);
+            System.out.println(Security.getConnectedUser().getNickname());
             postRepository.createPost(new Date(), title, content, categories, Security.getConnectedUser().getNickname());
         }
         AdminPageController.adminPage(null);

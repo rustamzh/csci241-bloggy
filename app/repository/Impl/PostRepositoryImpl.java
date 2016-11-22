@@ -41,7 +41,7 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public boolean createPost(Date date, String title, String body, String category, String user) {
-        String str = "insert into post (number_of_likes, date, body, category, user_nickname, title) values (0, \""+  new SimpleDateFormat("MM/dd/yyyy hh:mm").format(date)+"\",\""+body+"\", \""+category+"\", \""+user+"\",\""+title+"\" )";
+        String str = "insert into post (number_of_likes, date, body, category, user_nickname, title) values (0, NOW(),\'"+body+"\', \""+category+"\", \""+user+"\",\'"+title+"\' )";
         int res = getRes(str);
         return res==1;
     }
