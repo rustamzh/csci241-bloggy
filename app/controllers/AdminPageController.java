@@ -30,7 +30,7 @@ public class AdminPageController extends Controller{
         List<String> listCat = postRepository.getAllCategories();
         String error = flash.get("error");
         String editor = "editor";
-        if(Security.isConnected() || Security.getConnectedUser().getType().equals("editor")){
+        if(Security.isConnected() && Security.getConnectedUser().getType().equals("editor")){
             postList = postRepository.getPostbyUser(Security.getConnectedUser().getNickname());
             render(listappr, postList, error, postedit, listCat, editor);
         }
