@@ -37,8 +37,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean createUser(String nickname, String password, String type, String name) {
-        String str = "insert into user (nickname, password, type, name) values (\""+nickname+"\",\""+password+"\",\""+type+"\",\"" + name + "\")";
+    public boolean createUser(String nickname, String password, String type, String name, String email, String avatar) {
+        String str = "insert into user (nickname, password, type, name, email, avatar) values (\""+nickname+"\",\""+password+"\",\""+type+"\",\"" + name + "\",\""+email+"\",\""+avatar+"\")";
         int res = getRes(str);
         return res==1;
     }
