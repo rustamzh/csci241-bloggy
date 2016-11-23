@@ -45,15 +45,13 @@
 					#{/if}                	
 				</h2>
                 <div class="post-metadata">
-                	<div style="vertical-align: middle; display: inline-block;">
                 	#{if post.getAvatar() }
             	    	<img src=" ${ post.getAvatar() } " style="vertical-align: middle; display: inline-block;" class="img-responsive img-circle" alt="Avatar" width="50" height="50">
                 	#{/if}
                 	<span class="post-author">
             	    	${post.getName()}
                    	</span>
-                   	</div>
-                   	<span>
+                   	<span class="post-date" style="float: right" >
                     	${post.getPost().getDate().format('dd MMM yy')}
                     </span>
                 </div>
