@@ -83,9 +83,22 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public boolean updatePost(int postId, Post post) {
-        String str = "UPDATE post set title=\""+post.getTitle()+"\" , body=\'"+post.getBody()+"\', category=\"" + post.getCategory()+ "\", date=NOW() where nickname="+postId;
-        int res = getRes(str);
-        return res==1;
+        String str = "UPDATE post set title=? , body=?, category=?, date=NOW() where nickname=?";
+        boolean res= false;
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement=conn.prepareStatement(str);
+            preparedStatement.setInt(4, postId);
+            preparedStatement.setString(3, post.getCategory());
+            preparedStatement.setString(2, post.getBody());
+            preparedStatement.setString(1,post.getTitle());
+            res=preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return res;
     }
 
     @Override
