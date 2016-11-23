@@ -83,7 +83,7 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public boolean updatePost(int postId, Post post) {
-        String str = "UPDATE post set title=? , body=?, category=?, date=NOW() where nickname=?";
+        String str = "UPDATE post set title=? , body=?, category=?, date=NOW() where user_nickname=?";
         boolean res= false;
         PreparedStatement preparedStatement;
         try {
