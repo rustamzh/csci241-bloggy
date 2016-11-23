@@ -11,4 +11,5 @@ public interface CommentRepository {
     Comment getComment(int commentId);
     boolean updateComment(int commentId, Comment comment);
     boolean deleteComment(int commentId);
+    List<Comment> getApprovedComments(int postId);
 }

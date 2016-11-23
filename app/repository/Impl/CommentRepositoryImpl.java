@@ -82,6 +82,25 @@ public class CommentRepositoryImpl implements CommentRepository {
         return res==1;
     }
 
+    @Override
+    public List<Comment> getApprovedComments(int postId) {
+        List<Comment> list = new ArrayList<>();
+
+        try{
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("select * from comment as c where post_postId="+postId+" and c.commentId not in (select a.commentId from approval as a)");
+            while(rs.next()){
+                //int commentId, String date, String body, int post_postId, String user_nickname
+                list.add(new Comment(Integer.parseInt(rs.getString(1)),rs.getString(2),rs.getString(3),Integer.parseInt(rs.getString(4)),rs.getString(5)));
+            }
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+
+        }
+
+        return list;
+    }
+
     private int getRes(String str) {
         int res=0;
         Statement stm;
