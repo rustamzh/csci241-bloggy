@@ -52,11 +52,11 @@
                 	<span class="post-author">
             	    	${post.getName()}
                    	</span>
-                   	<span class="post-date pull-right">
+                   	<span class="post-date pull-right" style="vertical-align: middle;">
                     	${post.getPost().getDate().format('dd MMM yy')}
                     </span>
                 </div>
-                <br>
+                
                 <div class="post-content">
                 ${post.getPost().getBody().raw().nl2br()}
                 </div>
