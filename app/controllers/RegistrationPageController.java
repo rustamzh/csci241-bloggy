@@ -32,7 +32,20 @@ public class RegistrationPageController extends Controller {
 	
 	public static void register(String nickname, String password, String repeat_password, String name, String email, String promocode, File photo) {
     	
-		uploadPhoto(photo);
+		Cloudinary cloudinary = new Cloudinary("cloudinary://297275137474391:2Dh-cCwMIig131jx9Vb-2r6sSMI@ruszh");
+        if(photo==null){
+            System.out.println("NULLLLLLLLLLLl");
+            //renderJSON("{\"error\":false,\"path\":\""+/*uploadURL+*/"\"}");// or {"error":"filetype"} or {"error":"unknown"}
+        }
+        Map uploadResult = null;
+        try {
+            uploadResult = cloudinary.uploader().upload(photo, ObjectUtils.emptyMap());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        avatar= (String)uploadResult.get("secure_url");
+        System.out.println(avatar);
 		
 		if (nickname == null || password == null || repeat_password == null || nickname.isEmpty() || password.isEmpty() || repeat_password.isEmpty()) {
     		flash.put("error", "You did not fill required fields completely!!!");
@@ -82,20 +95,7 @@ public class RegistrationPageController extends Controller {
     }
 	
 	public static void uploadPhoto(File file) {
-        Cloudinary cloudinary = new Cloudinary("cloudinary://297275137474391:2Dh-cCwMIig131jx9Vb-2r6sSMI@ruszh");
-        if(file==null){
-            System.out.println("NULLLLLLLLLLLl");
-            //renderJSON("{\"error\":false,\"path\":\""+/*uploadURL+*/"\"}");// or {"error":"filetype"} or {"error":"unknown"}
-        }
-        Map uploadResult = null;
-        try {
-            uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        avatar= (String)uploadResult.get("secure_url");
-        System.out.println(avatar);
+        
         //renderJSON("{\"error\":false,\"path\":\""+uploadURL+"\"}");// or {"error":"filetype"} or {"error":"unknown"}
     }
 }
