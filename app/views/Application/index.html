@@ -36,27 +36,26 @@
 #{if paginator}
         #{paginate.list items:paginator, as:'post'}
             <div class="post">
-            	<div class="media">
-            		#{if post.getAvatar() }
+                <h2 class="post-title">
+                   	<a href="@{ Application.articlePage( post.getPost().getPostId() ) }">${post.getPost().getTitle()}</a>
+                   	#{if user}
+                   	<a class="btn btn-default pull-right" href="@{ Application.updateNumberOfLikes(post.getPost().getPostId(), user.getNickname(), "home") }">
+     					<span class="glyphicon glyphicon-thumbs-up"></span> ${post.getPost().getNumber_of_likes()}
+					</a>
+					#{/if}                	
+				</h2>
+                <div class="post-metadata">
+                	<span class="post-author-avatar">
+                	#{if post.getAvatar() }
             	    	<img src=" ${ post.getAvatar() } " class="img-responsive img-circle" alt="Avatar" width="50" height="50">
                 	#{/if}
-                	<h2 class="post-title">
-                    	<a href="@{ Application.articlePage( post.getPost().getPostId() ) }">${post.getPost().getTitle()}</a>
-                    	#{if user}
-                    	<a class="btn btn-default pull-right" href="@{ Application.updateNumberOfLikes(post.getPost().getPostId(), user.getNickname(), "home") }">
-     						<span class="glyphicon glyphicon-thumbs-up"></span> ${post.getPost().getNumber_of_likes()}
-						</a>
-						#{/if}
-                	</h2>
-                </div>>
-                <div class="post-metadata">
-                        <span class="post-author">
-                            ${post.getName()}
-                        </span>
-                   	 	<span class="post-date pull-right">
-                            ${post.getPost().getDate().format('dd MMM yy')}
-                        </span>
-
+                	</span>	
+                	<span class="post-author">
+            	    	${post.getName()}
+                   	</span>
+                   	<span class="post-date pull-right">
+                    	${post.getPost().getDate().format('dd MMM yy')}
+                    </span>
                 </div>
                 <div class="post-content">
                 ${post.getPost().getBody().raw().nl2br()}
