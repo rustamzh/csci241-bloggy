@@ -36,19 +36,19 @@
 #{if paginator}
         #{paginate.list items:paginator, as:'post'}
             <div class="post">
-                <h2 class="post-title">
-                	#{if post.getAvatar() }
-            	    	<span>
-            	    		<img src=" ${ post.getAvatar() } " class="img-responsive img-circle" alt="Avatar" width="50" height="50">
-                		</span>
+            	<div class="media">
+            		#{if post.getAvatar() }
+            	    	<img src=" ${ post.getAvatar() } " class="img-responsive img-circle" alt="Avatar" width="50" height="50">
                 	#{/if}
-                    <a href="@{ Application.articlePage( post.getPost().getPostId() ) }">${post.getPost().getTitle()}</a>
-                    #{if user}
-                    <a class="btn btn-default pull-right" href="@{ Application.updateNumberOfLikes(post.getPost().getPostId(), user.getNickname(), "home") }">
-     					<span class="glyphicon glyphicon-thumbs-up"></span> ${post.getPost().getNumber_of_likes()}
-					</a>
-					#{/if}
-                </h2>
+                	<h2 class="post-title">
+                    	<a href="@{ Application.articlePage( post.getPost().getPostId() ) }">${post.getPost().getTitle()}</a>
+                    	#{if user}
+                    	<a class="btn btn-default pull-right" href="@{ Application.updateNumberOfLikes(post.getPost().getPostId(), user.getNickname(), "home") }">
+     						<span class="glyphicon glyphicon-thumbs-up"></span> ${post.getPost().getNumber_of_likes()}
+						</a>
+						#{/if}
+                	</h2>
+                </div>>
                 <div class="post-metadata">
                         <span class="post-author">
                             ${post.getName()}
