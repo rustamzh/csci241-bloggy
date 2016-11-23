@@ -89,7 +89,7 @@ public class PostRepositoryImpl implements PostRepository{
         try {
             preparedStatement=conn.prepareStatement(str);
             preparedStatement.setInt(4, postId);
-            preparedStatement.setString(3, post.getCategory());
+            preparedStatement.setString(3, post.getCategory()==null?"Uncategorized":post.getCategory());
             preparedStatement.setString(2, post.getBody());
             preparedStatement.setString(1,post.getTitle());
             res=preparedStatement.execute();
