@@ -20,8 +20,6 @@ public class RegistrationPageController extends Controller {
 	private static Database database = DatabaseJDBC.getInstance();
 	private static Connection conn = database.getConnection();
 	
-	private static String avatar; 
-	
 	public static void registrationPage() {
 		if ( Security.isConnected() )
 			Application.index();
@@ -44,7 +42,7 @@ public class RegistrationPageController extends Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        avatar= (String)uploadResult.get("secure_url");
+        String avatar= (String)uploadResult.get("secure_url");
         System.out.println(avatar);
 		
 		if (nickname == null || password == null || repeat_password == null || nickname.isEmpty() || password.isEmpty() || repeat_password.isEmpty()) {
@@ -92,10 +90,5 @@ public class RegistrationPageController extends Controller {
     		registrationPage();
     	}
     		
-    }
-	
-	public static void uploadPhoto(File file) {
-        
-        //renderJSON("{\"error\":false,\"path\":\""+uploadURL+"\"}");// or {"error":"filetype"} or {"error":"unknown"}
     }
 }
