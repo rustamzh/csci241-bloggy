@@ -5,10 +5,7 @@ import database.DatabaseJDBC;
 import models.Post;
 import repository.PostRepository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,9 +38,24 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public boolean createPost(Date date, String title, String body, String category, String user) {
-        String str = "insert into post (number_of_likes, date, body, category, user_nickname, title) values (0, NOW(),\'"+body+"\', \""+category+"\", \""+user+"\",\'"+title+"\' )";
-        int res = getRes(str);
-        return res==1;
+        /*String str = "insert into post (number_of_likes, date, body, category, user_nickname, title) values (0, NOW(),\'"+body+"\', \""+category+"\", \""+user+"\",\'"+title+"\' )";
+        int res = getRes(str);*/
+        boolean res= false;
+        PreparedStatement preparedStatement;
+        String str = "insert into post (number_of_likes, date, body, category, user_nickname, title) values (0, NOW(), ?, ?, ?, ?)";
+        try {
+            preparedStatement=conn.prepareStatement(str);
+            preparedStatement.setString(1, body);
+            preparedStatement.setString(2, category);
+            preparedStatement.setString(3, user);
+            preparedStatement.setString(4,title);
+            res=preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return res;
     }
 
     @Override
