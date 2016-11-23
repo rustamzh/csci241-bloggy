@@ -37,24 +37,25 @@
         #{paginate.list items:paginator, as:'post'}
             <div class="post">
                 <h2 class="post-title">
-                    <a href="@{ Application.articlePage( post.getPostId() ) }">${post.getTitle()}</a>
+                	<img src=" @{ post.getAvatar() }" class="img-responsive img-circle" alt="Avatar" width="50" height="50">
+                    <a href="@{ Application.articlePage( post.getPost().getPostId() ) }">${post.getPost().getTitle()}</a>
                     #{if user}
-                    <a class="btn btn-default pull-right" href="@{ Application.updateNumberOfLikes(post.getPostId(), user.getNickname(), "home") }">
-     					<span class="glyphicon glyphicon-thumbs-up"></span> ${post.getNumber_of_likes()}
+                    <a class="btn btn-default pull-right" href="@{ Application.updateNumberOfLikes(post.getPost().getPostId(), user.getNickname(), "home") }">
+     					<span class="glyphicon glyphicon-thumbs-up"></span> ${post.getPost().getNumber_of_likes()}
 					</a>
 					#{/if}
                 </h2>
                 <div class="post-metadata">
                         <span class="post-author">
-                            ${post.getUser()}
+                            ${post.getName()}
                         </span>
-                    <span class="post-date">
-                            ${post.getDate().format('dd MMM yy')}
+                   	 	<span class="post-date pull-right">
+                            ${post.getPost().getDate().format('dd MMM yy')}
                         </span>
 
                 </div>
                 <div class="post-content">
-                ${post.getBody().raw().nl2br()}
+                ${post.getPost().getBody().raw().nl2br()}
                 </div>
 				
 				<hr>			

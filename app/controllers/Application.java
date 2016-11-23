@@ -4,6 +4,7 @@ import models.Comment;
 import models.Post;
 import models.User;
 import models.UserComment;
+import models.UserPost;
 import play.Play;
 import play.modules.paginate.ValuePaginator;
 import play.mvc.Before;
@@ -49,17 +50,24 @@ public class Application extends Controller {
         //int number_of_likes, Date date, String body, String category, String user_nickname
     	
     	List<Post> allPosts = postRepository.getAllPosts();
-        List<Post> listposts;
+        List<UserPost> listposts;
         String category = curCategory;
         
-        if (category == null || category.isEmpty())
-        	listposts = allPosts;
-        else {
+        if (category == null || category.isEmpty()) {
+        	listposts = new ArrayList();
+        	
+        	for (Post post: allPosts) {
+        		User postUser = userRepository.getUser( post.getUser() );
+        		listposts.add( new UserPost(post, postUser.getName(), postUser.getNickname(), postUser.getAvatar() ) );
+        	}
+        } else {
         	listposts = new ArrayList();
         	
         	for (Post post: allPosts)
-        		if ( post.getCategory().equals( category ) )
-        			listposts.add( post );
+        		if ( post.getCategory().equals( category ) ) {
+        			User postUser = userRepository.getUser( post.getUser() );
+            		listposts.add( new UserPost(post, postUser.getName(), postUser.getNickname(), postUser.getAvatar() ) );
+        		}
         }
         
         System.out.println( "Number of posts in " + category + " category is " + listposts.size() );

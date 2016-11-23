@@ -108,6 +108,7 @@ public class AdminPageController extends Controller{
         System.out.println(uploadURL);
         renderJSON("{\"error\":false,\"path\":\""+uploadURL+"\"}");// or {"error":"filetype"} or {"error":"unknown"}
     }
+    
     public static void approveSelected(List<String> selectedTerms) {
         if(selectedTerms!=null && !selectedTerms.isEmpty()){
             selectedTerms.forEach((String s) -> repo.deleteApproval(Integer.parseInt(s)));
