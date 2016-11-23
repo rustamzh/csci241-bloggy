@@ -71,7 +71,7 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public boolean updatePost(int postId, Post post) {
-        String str = "UPDATE post set title=\""+post.getTitle()+"\" , body=\""+post.getBody()+"\", category=\"" + post.getCategory()+ "\", date=\""+new SimpleDateFormat().format(post.getDate())+"\" where nickname="+postId;
+        String str = "UPDATE post set title=\""+post.getTitle()+"\" , body=\'"+post.getBody()+"\', category=\"" + post.getCategory()+ "\", date=NOW() where nickname="+postId;
         int res = getRes(str);
         return res==1;
     }
