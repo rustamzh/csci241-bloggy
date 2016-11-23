@@ -36,8 +36,10 @@
 #{if paginator}
         #{paginate.list items:paginator, as:'post'}
             <div class="post">
+            	#{if post.getAvatar() }
+            	    <img src=" ${ post.getAvatar() } " class="img-responsive img-circle" alt="Avatar" width="50" height="50">
+                #{/if}
                 <h2 class="post-title">
-                	<img src=" ${ post.getAvatar() } " class="img-responsive img-circle" alt="Avatar" width="50" height="50">
                     <a href="@{ Application.articlePage( post.getPost().getPostId() ) }">${post.getPost().getTitle()}</a>
                     #{if user}
                     <a class="btn btn-default pull-right" href="@{ Application.updateNumberOfLikes(post.getPost().getPostId(), user.getNickname(), "home") }">
