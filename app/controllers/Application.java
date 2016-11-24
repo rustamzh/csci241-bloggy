@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static controllers.AdminPageController.postRepository;
-
 public class Application extends Controller {
 	
 	static ApprovalRepository approvalRepository = new ApprovalRepositoryImpl();
