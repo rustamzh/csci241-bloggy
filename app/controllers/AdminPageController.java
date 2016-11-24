@@ -17,18 +17,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static controllers.Application.approvalRepository;
 import static controllers.Application.commentRepository;
+import static controllers.Application.postRepository;
 
 public class AdminPageController extends Controller{
-    static ApprovalRepository repo=new ApprovalRepositoryImpl();
-    static PostRepository postRepository = new PostRepositoryImpl();
+
 
 
     public static void adminPage(Post postedit){
     	if ( !Security.isConnected() || (!Security.getConnectedUser().getType().equals("admin") && !Security.getConnectedUser().getType().equals("editor")) )
     		Application.index();
 
-        List<Approval> listappr = repo.getAllApprovalsforTable();
+        List<Approval> listappr = approvalRepository.getAllApprovalsforTable();
         List<Post> postList = postRepository.getAllPosts();
         List<String> listCat = postRepository.getAllCategories();
         String error = flash.get("error");
@@ -42,7 +43,7 @@ public class AdminPageController extends Controller{
 
     public static void approveAll(){
 
-        repo.deleteAllApprovals();
+        approvalRepository.deleteAllApprovals();
         AdminPageController.adminPage(null);
     }
 
@@ -114,12 +115,12 @@ public class AdminPageController extends Controller{
     
     public static void approveSelected(List<String> selectedTerms) {
         if(selectedTerms!=null && !selectedTerms.isEmpty()){
-            selectedTerms.forEach((String s) -> repo.deleteApproval(Integer.parseInt(s)));
+            selectedTerms.forEach((String s) -> approvalRepository.deleteApproval(Integer.parseInt(s)));
         }
         AdminPageController.adminPage(null);
     }
     public static void deleteApproval(Integer approvalid, Integer commentId){
-        repo.deleteApproval(approvalid);
+        approvalRepository.deleteApproval(approvalid);
         commentRepository.deleteComment(commentId);
         AdminPageController.adminPage(null);
     }
