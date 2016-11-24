@@ -87,9 +87,23 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public boolean updateComment(int commentId, Comment comment) {
-        String str = "UPDATE comment set date=\""+comment.getDate().toString()+"\" , body=\""+comment.getBody()+"\" where commentId="+commentId;
-        int res = getRes(str);
-        return res==1;
+        String str = "UPDATE comment set date=? , body=? where commentId=?";
+        boolean id=false;
+        PreparedStatement preparedStatement;
+        //String str = "insert into post (number_of_likes, date, body, category, user_nickname, title) values (0, NOW(), ?, ?, ?, ?)";
+        try {
+            preparedStatement=conn.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, comment.getDate().toString());
+            preparedStatement.setInt(3, commentId);
+            preparedStatement.setString(2, comment.getBody());
+            id=preparedStatement.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return id;
     }
 
     @Override
