@@ -14,6 +14,7 @@ import repository.CommentRepository;
 import repository.LikeRepository;
 import repository.PostRepository;
 import repository.UserRepository;
+import repository.Impl.ApprovalRepositoryImpl;
 import repository.Impl.ApprovalTestingRepositoryImpl;
 import repository.Impl.CommentRepositoryImpl;
 import repository.Impl.LikeRepositoryImpl;
@@ -30,7 +31,7 @@ import static controllers.AdminPageController.postRepository;
 
 public class Application extends Controller {
 	
-	static ApprovalRepository repo=new ApprovalTestingRepositoryImpl();
+	static ApprovalRepository approvalRepository = new ApprovalRepositoryImpl();
     static PostRepository postRepository = new PostRepositoryImpl();
     static CommentRepository commentRepository = new CommentRepositoryImpl();
     static UserRepository userRepository = new UserRepositoryImpl();
@@ -88,6 +89,9 @@ public class Application extends Controller {
     public static void articlePage(int postId) {
     	
     	Post post = postRepository.getPost(postId);
+    	User postUser = userRepository.getUser( post.getUser() );
+		UserPost userPost = new UserPost(post, postUser.getName(), postUser.getNickname(), postUser.getAvatar() );
+		
     	String category = curCategory;
     	List<String> listCat = postRepository.getAllCategories();
     	User user = Security.getConnectedUser();
@@ -103,7 +107,7 @@ public class Application extends Controller {
         	userCommentList.add( userComment );
         }
         
-        render(post, listCat, user, category, error, userCommentList);
+        render(userPost, listCat, user, category, error, userCommentList);
     }
     
     public static void setCategory(String cat) {
@@ -121,8 +125,11 @@ public class Application extends Controller {
     		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     		LocalDateTime now = LocalDateTime.now();
     		
-    		if ( !commentRepository.createComment( dtf.format(now).toString(), content, postId, userNickname ) )
+    		int commentId = commentRepository.createComment( dtf.format(now).toString(), content, postId, userNickname );
+    		if ( commentId == -1 )
     			flash.put("error", "The error uploading comment occured");
+    		else
+    			approvalRepository.createApproval( commentId );
         } else {
         	flash.put("error", "Some error with fields occured");
         }
