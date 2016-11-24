@@ -3,10 +3,7 @@ package repository.Impl;
 import models.Comment;
 import repository.CommentRepository;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +36,30 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public boolean createComment(String date, String body, int post_postId, String user_nickname) {
-        String str = "insert into comment (date, body, post_postId, user_nickname) values ('"+ date +"', '"+body+"', "+post_postId+",'" + user_nickname + "')";
-        int res = getRes(str);
-        return res==1;
+    public int createComment(String date, String body, int post_postId, String user_nickname) {
+        String str = "insert into comment (date, body, post_postId, user_nickname) values (?,?,?,?)";
+
+        int id=-1;
+        PreparedStatement preparedStatement;
+        //String str = "insert into post (number_of_likes, date, body, category, user_nickname, title) values (0, NOW(), ?, ?, ?, ?)";
+        try {
+            preparedStatement=conn.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, date);
+            preparedStatement.setInt(3, post_postId);
+            preparedStatement.setString(2, body);
+            preparedStatement.setString(4,user_nickname);
+            preparedStatement.execute();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if(rs.next()) {
+                //In this exp, the autoKey val is in 1st col
+                id=rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return id;
     }
 
     @Override

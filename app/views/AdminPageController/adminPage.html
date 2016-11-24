@@ -42,6 +42,98 @@
         </div>
     </div>
 
+
+    <div class="row">
+    #{if postedit}
+        <h2 class="sub-header" id="newarticle">Edit post</h2>
+    #{/if}
+    #{else }
+        <h2 class="sub-header" id="newarticle">New post</h2>
+    #{/else}
+
+        <hr>
+    #{if postedit}
+        #{form @edithelp()}
+        %{session.put("editID",postedit.getPostId()) }%
+
+            #{if error}
+                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                ${error}
+                </div>
+            #{/if}
+            <p>
+                #{field 'title'}
+                    <label>Post title:</label>
+                    <input type="text" name="${field.name}"
+                           value="${postedit?.title}" class="form-control"/>
+                    <span class="error">#{error 'post.title' /}</span>
+                #{/field}
+            </p>
+
+            <p>
+                #{field 'content'}
+                    <label>Content:</label>
+                    <textarea name="${field.name}" class="form-control" id="bodyContent"
+                              rows="16">${postedit?.body}</textarea>
+                    <span class="error">#{error 'post.body' /}</span>
+                #{/field}
+
+            </p>
+            <p>
+                #{select 'categories', items:listCat, name:'toString()', value:5, class:'form-control'/}
+            </p>
+
+            <p>
+                <input type="submit" class="btn btn-default" value="Publish this post to the blog"/>
+            </p>
+
+        #{/form}
+    #{/if}
+    #{else }
+        #{form @save()}
+
+            #{if error}
+                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                ${error}
+                </div>
+            #{/if}
+            <p>
+                #{field 'title'}
+                    <label>Post title:</label>
+                    <input type="text" name="${field.name}"
+                           value="${postedit?.title}" class="form-control"/>
+                    <span class="error">#{error 'post.title' /}</span>
+                #{/field}
+            </p>
+
+            <p>
+                #{field 'content'}
+                    <label>Content:</label>
+                    <textarea name="${field.name}" class="form-control" id="bodyContent"
+                              rows="16">${postedit?.body}</textarea>
+                    <span class="error">#{error 'post.body' /}</span>
+                #{/field}
+
+            </p>
+
+            <p>
+                #{select 'categories', items:listCat, name:'toString()', value:5, class:'form-control'/}
+            </p>
+
+            <p>
+                <input type="submit" class="btn btn-default" value="Publish this post to the blog"/>
+            </p>
+
+        #{/form}
+
+    #{/else}
+
     <div class="row">
         #{ifnot editor}
         <div class="col-xs-6">
@@ -76,7 +168,7 @@
                         <td>${appr.getUser_nickname()}</td>
                         <td>${appr.getComment_body()}</td>
                         <td><input type="checkbox" name="selectedTerms" value="${appr.getApprovalId()}"/></td>
-                        <td><a type="button" class="btn btn-sm btn-danger" href="@{AdminPageController.deleteApproval(appr.getApprovalId())}">Delete</a></td>
+                        <td><a type="button" class="btn btn-sm btn-danger" href="@{AdminPageController.deleteApproval(appr.getApprovalId(), appr.getCommentId())}">Delete</a></td>
                     </tr>
                     #{/list}
                     </tbody>
@@ -175,96 +267,6 @@
         #{/if}
     </div>
 
-    <div class="row">
-    #{if postedit}
-        <h2 class="sub-header" id="newarticle">Edit post</h2>
-    #{/if}
-    #{else }
-        <h2 class="sub-header" id="newarticle">New post</h2>
-    #{/else}
-
-        <hr>
-    #{if postedit}
-        #{form @edithelp()}
-        %{flash.put("editID",postedit.getPostId())}%
-
-            #{if error}
-                <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                ${error}
-                </div>
-            #{/if}
-            <p>
-                #{field 'title'}
-                    <label>Post title:</label>
-                    <input type="text" name="${field.name}"
-                           value="${postedit?.title}" class="form-control"/>
-                    <span class="error">#{error 'post.title' /}</span>
-                #{/field}
-            </p>
-
-            <p>
-                #{field 'content'}
-                    <label>Content:</label>
-                    <textarea name="${field.name}" class="form-control" id="bodyContent"
-                              rows="16">${postedit?.body}</textarea>
-                    <span class="error">#{error 'post.body' /}</span>
-                #{/field}
-
-            </p>
-            <p>
-                #{select 'categories', items:listCat, name:'toString()', value:5, class:'form-control'/}
-            </p>
-
-            <p>
-                <input type="submit" class="btn btn-default" value="Publish this post to the blog"/>
-            </p>
-
-        #{/form}
-    #{/if}
-    #{else }
-        #{form @save()}
-
-            #{if error}
-                <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                ${error}
-                </div>
-            #{/if}
-            <p>
-                #{field 'title'}
-                    <label>Post title:</label>
-                    <input type="text" name="${field.name}"
-                           value="${postedit?.title}" class="form-control"/>
-                    <span class="error">#{error 'post.title' /}</span>
-                #{/field}
-            </p>
-
-            <p>
-                #{field 'content'}
-                    <label>Content:</label>
-                    <textarea name="${field.name}" class="form-control" id="bodyContent"
-                              rows="16">${postedit?.body}</textarea>
-                    <span class="error">#{error 'post.body' /}</span>
-                #{/field}
-
-            </p>
-
-            <p>
-                #{select 'categories', items:listCat, name:'toString()', value:5, class:'form-control'/}
-            </p>
-
-            <p>
-                <input type="submit" class="btn btn-default" value="Publish this post to the blog"/>
-            </p>
-
-        #{/form}
-
-    #{/else}
     </div>
     <footer>
         <p>Blog css'ed with Bootstrp</p>
