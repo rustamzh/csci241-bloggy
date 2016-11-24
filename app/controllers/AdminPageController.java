@@ -6,6 +6,7 @@ import models.Approval;
 import models.Post;
 import play.mvc.Controller;
 import repository.ApprovalRepository;
+import repository.CommentRepository;
 import repository.Impl.ApprovalRepositoryImpl;
 import repository.Impl.PostRepositoryImpl;
 import repository.PostRepository;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static controllers.Application.commentRepository;
 
 public class AdminPageController extends Controller{
     static ApprovalRepository repo=new ApprovalRepositoryImpl();
@@ -80,8 +83,8 @@ public class AdminPageController extends Controller{
 
     public static void edithelp(String title, String content, String cat){
         //Date date,String title, String body, String category, User user
-        String param = flash.get("editID");
-
+        String param = session.get("editID");
+        System.out.println(param);
         Post post=postRepository.getPost(Integer.parseInt(param));
         save(title,content,cat,post.getPostId());
     }
@@ -115,8 +118,9 @@ public class AdminPageController extends Controller{
         }
         AdminPageController.adminPage(null);
     }
-    public static void deleteApproval(String approvalid){
-        repo.deleteApproval(Integer.parseInt(approvalid));
+    public static void deleteApproval(Integer approvalid, Integer commentId){
+        repo.deleteApproval(approvalid);
+        commentRepository.deleteComment(commentId);
         AdminPageController.adminPage(null);
     }
 }
