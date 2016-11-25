@@ -37,7 +37,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean createUser(String nickname, String password, String type, String name, String email, String avatar) {
         String str = "insert into user (nickname, password, type, name, email, avatar) values (?,?,?,?,?,?)";
-        boolean res= false;
+        int res=0;
         PreparedStatement preparedStatement;
         try {
             preparedStatement=conn.prepareStatement(str);
@@ -47,11 +47,11 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.setString(4,name);
             preparedStatement.setString(5,email);
             preparedStatement.setString(6,avatar);
-            res=preparedStatement.execute();
+            res=preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return res;
+        return res==1;
     }
 
     @Override
