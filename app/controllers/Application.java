@@ -157,4 +157,9 @@ public class Application extends Controller {
     	else
     		articlePage(postId);
     }
+
+    public static void aboutus() {
+        List<String> listCat = postRepository.getAllCategories();
+        render(listCat);
+    }
 }

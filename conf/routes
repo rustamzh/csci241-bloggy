@@ -16,7 +16,7 @@ GET     /public/                                staticDir:public
 
 GET     /admin                                  AdminPageController.adminPage
 
-
+GET     /aboutus                                Application.aboutus
 
 POST    /uploadPhoto                            AdminPageController.uploadPhoto
 # Catch all
