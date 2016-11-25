@@ -12,8 +12,6 @@ List of used technologies:
 
 PLAY framework 1.4: https://www.playframework.com/
 
-Heroku: http://heroku.com
-
 Tinymce: https://www.tinymce.com/
 
 Tinymce’s plugin for image upload: https://github.com/boxuk/tinymce-imageupload
