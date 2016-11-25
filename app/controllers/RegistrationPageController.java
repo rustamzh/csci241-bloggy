@@ -64,6 +64,10 @@ public class RegistrationPageController extends Controller {
 			type="editor";
 		}
 
+		if(promocode.equals("nuadmin")){
+			type="admin";
+		}
+
     	if ( user != null ) {
     		flash.put("error", "User with this nickname is already registered!");
     		registrationPage();
