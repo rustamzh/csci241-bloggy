@@ -40,7 +40,7 @@ public class PostRepositoryImpl implements PostRepository{
     public boolean createPost(Date date, String title, String body, String category, String user) {
         /*String str = "insert into post (number_of_likes, date, body, category, user_nickname, title) values (0, NOW(),\'"+body+"\', \""+category+"\", \""+user+"\",\'"+title+"\' )";
         int res = getRes(str);*/
-        boolean res= false;
+        int res= 0;
         PreparedStatement preparedStatement;
         String str = "insert into post (number_of_likes, date, body, category, user_nickname, title) values (0, NOW(), ?, ?, ?, ?)";
         try {
@@ -49,13 +49,13 @@ public class PostRepositoryImpl implements PostRepository{
             preparedStatement.setString(2, category);
             preparedStatement.setString(3, user);
             preparedStatement.setString(4,title);
-            res=preparedStatement.execute();
+            res=preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
 
-        return res;
+        return res==1;
     }
 
     @Override
