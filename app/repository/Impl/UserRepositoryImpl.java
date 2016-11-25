@@ -1,6 +1,7 @@
-package repository;
+package repository.Impl;
 
 import models.User;
+import repository.UserRepository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -44,7 +45,7 @@ public class UserRepositoryImpl implements UserRepository {
 
             try{
                 Statement stm = conn.createStatement();
-                ResultSet rs = stm.executeQuery("select * from user where nickname="+nickname+" limit 1");
+                ResultSet rs = stm.executeQuery("select * from user where nickname=\""+nickname+"\" limit 1");
                 if(!rs.isBeforeFirst()){
                     return user=null;
                 }
