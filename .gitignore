@@ -4,19 +4,19 @@
 bin/
 /db
 .eclipse
-/lib/
 /logs/
 /modules
 /project/target
 /target
-tmp/
+#tmp/
 test-result
 server.pid
 *.eml
 /dist/
 .cache
 /documentation
-.idea
+.idea/
+.settings/
 /out
 
 data/
@@ -25,3 +25,10 @@ dist/
 logs/
 test-result/
 modules/
+eclipse/
+tmp/
+
+.classpath
+.project
+pom.xml.bak
+

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+#{set title:'Dashboard'/}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>#{get 'title' /}</title>
+
+*{<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>}*
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+#{script 'tinymce/tinymce.min.js'/}
+#{script 'jquery.iframe-post-form.js'/}
+
+    <script>tinymce.init({
+        selector: '#bodyContent', theme: 'modern',
+        imageupload_url: 'uploadPhoto',
+        plugins: ['imageupload',
+            'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+            'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+            'save table contextmenu directionality emoticons template paste textcolor'
+        ],
+        toolbar: ['newdocument, bold, italic, underline, strikethrough, alignleft, aligncenter, alignright, alignjustify | styleselect, formatselect, fontselect, fontsizeselect | preview',
+            'bullist, numlist, outdent, indent, blockquote, undo, redo, removeformat, subscript, superscript, code, imageupload']
+    });</script>
+
+
+#{stylesheet 'main.css' /}
+#{stylesheet 'bootstrap.min.css' /}
+#{stylesheet 'bootstrap-theme.min.css' /}
+    <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+</head>
+
+<body style="padding-bottom: 20px;">
+<div class="container">
+
+    <div class="row">
+        <div class="well well-sm">
+            <p>#{a @Application.index()}<span class="glyphicon glyphicon-menu-left"></span>Back to the site#{/a}</p>
+        </div>
+    </div>
+
+
+    <div class="row">
+    #{if postedit}
+        <h2 class="sub-header" id="newarticle">Edit post</h2>
+    #{/if}
+    #{else }
+        <h2 class="sub-header" id="newarticle">New post</h2>
+    #{/else}
+
+        <hr>
+    #{if postedit}
+        #{form @edithelp()}
+        %{session.put("editID",postedit.getPostId()) }%
+
+            #{if error}
+                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                ${error}
+                </div>
+            #{/if}
+            <p>
+                #{field 'title'}
+                    <label>Post title:</label>
+                    <input type="text" name="${field.name}"
+                           value="${postedit?.title}" class="form-control"/>
+                    <span class="error">#{error 'post.title' /}</span>
+                #{/field}
+            </p>
+
+            <p>
+                #{field 'content'}
+                    <label>Content:</label>
+                    <textarea name="${field.name}" class="form-control" id="bodyContent"
+                              rows="16">${postedit?.body}</textarea>
+                    <span class="error">#{error 'post.body' /}</span>
+                #{/field}
+
+            </p>
+            <p>
+                #{select 'categories', items:listCat, name:'toString()', value:5, class:'form-control'/}
+            </p>
+
+            <p>
+                <input type="submit" class="btn btn-default" value="Publish this post to the blog"/>
+            </p>
+
+        #{/form}
+    #{/if}
+    #{else }
+        #{form @save()}
+
+            #{if error}
+                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                ${error}
+                </div>
+            #{/if}
+            <p>
+                #{field 'title'}
+                    <label>Post title:</label>
+                    <input type="text" name="${field.name}"
+                           value="${postedit?.title}" class="form-control"/>
+                    <span class="error">#{error 'post.title' /}</span>
+                #{/field}
+            </p>
+
+            <p>
+                #{field 'content'}
+                    <label>Content:</label>
+                    <textarea name="${field.name}" class="form-control" id="bodyContent"
+                              rows="16">${postedit?.body}</textarea>
+                    <span class="error">#{error 'post.body' /}</span>
+                #{/field}
+
+            </p>
+
+            <p>
+                #{select 'categories', items:listCat, name:'toString()', value:5, class:'form-control'/}
+            </p>
+
+            <p>
+                <input type="submit" class="btn btn-default" value="Publish this post to the blog"/>
+            </p>
+
+        #{/form}
+
+    #{/else}
+
+    <div class="row">
+        #{ifnot editor}
+        <div class="col-xs-6">
+            <h2 class="sub-header">Comments waiting for approval</h2>
+        #{form @AdminPageController.approveSelected(), enctype:'multipart/form-data'}
+
+            <div class="row">
+                <div class="col-xs-3 col-xs-offset-6">
+                    <input type="submit" class="btn btn-default btn-success" value="Approve selected"/>
+                </div>
+                <div class="col-xs-3">
+                    <a type="button" class="btn btn-default btn-success" href="@{AdminPageController.approveAll()}">Approve
+                        All</a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Post title</th>
+                        <th>User</th>
+                        <th>Comment</th>
+                        <th>Approve</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    #{list items:listappr, as:'appr'}
+                    <tr>
+                        <td>${appr.getTitle()}</td>
+                        <td>${appr.getUser_nickname()}</td>
+                        <td>${appr.getComment_body()}</td>
+                        <td><input type="checkbox" name="selectedTerms" value="${appr.getApprovalId()}"/></td>
+                        <td><a type="button" class="btn btn-sm btn-danger" href="@{AdminPageController.deleteApproval(appr.getApprovalId(), appr.getCommentId())}">Delete</a></td>
+                    </tr>
+                    #{/list}
+                    </tbody>
+
+                </table>
+            </div>
+        #{/form}
+        </div>
+        <div class="col-xs-6">
+            <h2 class="sub-header">Post stats</h2>
+            <div class="row">
+                <div class="col-xs-3 col-xs-offset-9">
+                    <a type="button" class="btn btn-default btn-danger" href="@{AdminPageController.deleteAll()}">Delete
+                        All posts</a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Post title</th>
+                        <th>Author</th>
+                        <th>Date</th>
+                        <th>Likes</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    #{list items:postList, as:'posta'}
+                    <tr>
+                        <td>${posta.getTitle()}</td>
+                        <td>${posta.getUser()}</td>
+                        <td>${posta.getDate().format('dd.MM.yy')}</td>
+                        <td>${posta.getNumber_of_likes()}</td>
+                    %{id=posta.getPostId()}%
+                        <td><a type="button" class="btn btn-sm btn-primary"
+                               href="@{AdminPageController.edit(id)}">Edit</a></td>
+                        <td><a type="button" class="btn btn-sm btn-danger"
+                               href="@{AdminPageController.delete(id)}">Delete</a></td>
+                    </tr>
+                    #{/list}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        #{/ifnot}
+        #{if editor}
+        #{if postList}
+            <div class="col-xs-12">
+                <h2 class="sub-header">Post stats</h2>
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-9">
+                        <a type="button" class="btn btn-default btn-danger" href="@{AdminPageController.deleteAll()}">Delete
+                            All posts</a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Post title</th>
+                            <th>Author</th>
+                            <th>Date</th>
+                            <th>Likes</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            #{list items:postList, as:'posta'}
+                            <tr>
+                                <td>${posta.getTitle()}</td>
+                                <td>${posta.getUser()}</td>
+                                <td>${posta.getDate().format('dd.MM.yy')}</td>
+                                <td>${posta.getNumber_of_likes()}</td>
+                            %{id=posta.getPostId()}%
+                                <td><a type="button" class="btn btn-sm btn-primary"
+                                       href="@{AdminPageController.edit(id)}">Edit</a></td>
+                                <td><a type="button" class="btn btn-sm btn-danger"
+                                       href="@{AdminPageController.delete(id)}">Delete</a></td>
+                            </tr>
+                            #{/list}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        #{/if}
+        #{else }
+
+            <h2>It is time to write new post</h2>
+
+        #{/else}
+        #{/if}
+    </div>
+
+    </div>
+    <footer>
+        <p>Blog css'ed with Bootstrp</p>
+        <p>&copy; ${new Date().format("yyyy")}</p>
+    </footer>
+
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+
+#{script 'bootstrap.min.js'/}
+</body>
+</html>

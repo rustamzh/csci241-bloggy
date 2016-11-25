@@ -3,15 +3,17 @@ package repository.Impl;
 import models.User;
 import repository.UserRepository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.Database;
+import database.DatabaseJDBC;
+
 
 public class UserRepositoryImpl implements UserRepository {
-    private Connection conn=null;
+	private Database database = DatabaseJDBC.getInstance();
+	private Connection conn = database.getConnection();
 
     @Override
     public List<User> getAllUsers() {
@@ -33,10 +35,23 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean createUser(String nickname, String password, String type, String name) {
-        String str = "insert into user (nickname, password, type, name) values (\""+nickname+"\",\""+password+"\",\""+type+"\",\"" + name + "\")";
-        int res = getRes(str);
-        return res==1;
+    public boolean createUser(String nickname, String password, String type, String name, String email, String avatar) {
+        String str = "insert into user (nickname, password, type, name, email, avatar) values (?,?,?,?,?,?)";
+        boolean res= false;
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement=conn.prepareStatement(str);
+            preparedStatement.setString(1, nickname);
+            preparedStatement.setString(2, password);
+            preparedStatement.setString(3, type);
+            preparedStatement.setString(4,name);
+            preparedStatement.setString(5,email);
+            preparedStatement.setString(6,avatar);
+            res=preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     @Override

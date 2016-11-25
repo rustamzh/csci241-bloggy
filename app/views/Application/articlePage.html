@@ -1,0 +1,89 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+#{if category}
+	<div class="row">
+		<h3 class="display-4">${category}</h3>
+	</div>
+#{/if}
+
+#{if error}
+	<div class="alert alert-warning">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  		<strong>Warning!</strong> ${error} 
+	</div>
+#{/if}
+
+<div class="post">
+	<h2 class="post-title">
+    	<a href="#">${userPost.getPost().getTitle()}</a>
+    	#{if user}
+        	<a class="btn btn-default pull-right" href="@{ Application.updateNumberOfLikes(userPost.getPost().getPostId(), user.getNickname(), "article") }">
+     			<span class="glyphicon glyphicon-thumbs-up"></span> ${userPost.getPost().getNumber_of_likes()}
+			</a>
+		#{/if}
+    </h2>
+   	<div class="post-metadata">
+   		#{if userPost.getAvatar() }
+        	<img src=" ${ userPost.getAvatar() } " style="vertical-align: middle; display: inline-block;" class="img-responsive img-circle" alt="Avatar" width="50" height="50">
+        #{/if}
+   		<span class="post-author">
+        	${userPost.getName()}
+        </span>
+        <span class="post-date pull-right">
+        	${userPost.getPost().getDate().format('dd MMM yy')}
+        </span>
+    </div>
+    <br>
+    <div class="post-content">
+    	${userPost.getPost().getBody().raw().nl2br()}
+    </div>
+                
+    #{if user}
+ 		<form class="form-vertical" action="@{ Application.postComment( userPost.getPost().getPostId() ) }" method="POST" accept-charset="UTF-8">
+    		<div class="row form-group">	
+        		<label for="content">Your comment: </label>
+        		<textarea class="form-control" name="content" id="content"></textarea>
+    		</div>
+    		<div class="row form-group">
+        		<input type="submit" class="btn btn-default btn-block" value="Submit your comment" />
+   			</div>
+		</form>
+	#{/if}
+	#{else}
+	<hr>
+	#{/else}
+	
+	#{if userCommentList}
+	<div class="comments">
+		#{list items: userCommentList, as:'comment'}
+        	<div class="comment">
+            	<div class="comment-metadata">
+            		#{if comment.getAvatar() }
+        				<img src=" ${ comment.getAvatar() } " style="vertical-align: middle; display: inline-block;" class="img-responsive img-circle" alt="Avatar" width="50" height="50">
+       				#{/if}
+               		<span class="comment-author ">
+                    	${comment.getName()}
+                    </span>
+                	<span class="comment-date pull-right">
+                    	${comment.getComment().getDate().format('dd MMM yy hh:mm:ss')}
+                    </span>
+            	</div>
+            	<br>
+            	<div class="comment-content">
+            		${comment.getComment().getBody().raw().nl2br()}
+            	</div>
+            	<br/>
+        	</div>
+    	#{/list}
+    </div>
+	#{/if}
+</div>
+
+<br/>
+
+#{else}
+<div class="empty">
+    There is currently nothing to read here.
+</div>
+#{/else}

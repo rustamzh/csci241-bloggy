@@ -6,8 +6,9 @@ import java.util.List;
 
 
 public interface ApprovalRepository {
-    List<Approval> getAllApprovals();
+    List<Approval> getAllApprovalsforTable();
     boolean createApproval(int commentId);
     boolean deleteApproval(int approvalId);
+    boolean deleteAllApprovals();
 
 }
